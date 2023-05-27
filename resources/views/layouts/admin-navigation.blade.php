@@ -13,7 +13,19 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
-                        {{ __('Dashboard') }}
+                        ホーム
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('admin.stylist.index')" :active="request()->routeIs('admin.stylist.index')">
+                        スタイリスト
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('admin.stylist.index')" :active="request()->routeIs('admin.stylist.index')">
+                        ユーザー
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('admin.parking.index')" :active="request()->routeIs('admin.parking.index')">
+                        駐車場
                     </x-nav-link>
                 </div>
             </div>
