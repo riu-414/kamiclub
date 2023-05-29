@@ -21,7 +21,7 @@ class StylistController extends Controller
      */
     public function index()
     {
-        $stylists = Stylist::select('name', 'created_at')->get();
+        $stylists = Stylist::select('id', 'name', 'created_at')->get();
 
         // echo $stylists;
 
@@ -72,7 +72,9 @@ class StylistController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $stylist = Stylist::findOrFail($id);
+        // dd($stylist);
+        return view('admin.stylist.edit', compact('stylist'));
     }
 
     /**
@@ -80,7 +82,13 @@ class StylistController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $stylist = Stylist::findOrFail($id);
+        $stylist->name = $request->name;
+        $stylist->save();
+
+        return redirect()
+        ->route('admin.stylist.index')
+        ->with('message', 'スタイリスト情報を更新');
     }
 
     /**
