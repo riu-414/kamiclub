@@ -38,7 +38,8 @@
                                         <td class="px-4 py-3">{{ $stylist->name }}</td>
                                         <td class="px-4 py-3">{{ $stylist->created_at }}</td>
                                         <td class="w-10 text-center">
-                                        <input name="plan" type="radio">
+                                        {{-- <input name="plan" type="radio"> --}}
+                                        <button onclick="location.href='{{ route('admin.stylist.edit', ['stylist' => $stylist->id]) }}'" class="text-gray bg-blue-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded">編集する</button>
                                         </td>
                                     </tr>
                                     @endforeach
