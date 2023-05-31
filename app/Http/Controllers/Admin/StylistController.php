@@ -56,7 +56,7 @@ class StylistController extends Controller
 
         return redirect()
         ->route('admin.stylist.index')
-        ->with('message', 'スタイリスト登録を実施');
+        ->with(['message' => 'スタイリスト登録を実施', 'status' => 'info']);
     }
 
     /**
@@ -88,7 +88,7 @@ class StylistController extends Controller
 
         return redirect()
         ->route('admin.stylist.index')
-        ->with('message', 'スタイリスト情報を更新');
+        ->with(['message' => 'スタイリスト情報を更新', 'status' => 'info']);
     }
 
     /**
@@ -96,6 +96,10 @@ class StylistController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Stylist::findOrFail($id)->delete(); //ソフトデリート
+
+        return redirect()
+        ->route('admin.stylist.index')
+        ->with(['message' => 'スタイリスト情報を削除', 'status' => 'alert']);
     }
 }
