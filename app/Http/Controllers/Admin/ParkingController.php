@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Admin;
+use App\Models\Parking; //Eloquent
+use Illuminate\Support\Facades\DB; //QueryBuilder
+use NunoMaduro\Collision\Adapters\Phpunit\Style;
 
 class ParkingController extends Controller
 {
@@ -17,7 +21,10 @@ class ParkingController extends Controller
      */
     public function index()
     {
-        dd('駐車場');
+        $parkings = Parking::select('id', 'name', 'situation')->get();
+
+        return view('admin.parking.index',
+        compact('parkings'));
     }
 
     /**
