@@ -64,7 +64,19 @@ class ParkingController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $parking = Parking::findOrFail($id);
+
+        // $parking->situation = "満車";
+        if($parking->situation === "空車") {
+            $parking->situation = "満車";
+        } else {
+            $parking->situation = "空車";
+        }
+
+        $parking->save();
+
+        return redirect()
+        ->route('admin.parking.index');
     }
 
     /**
