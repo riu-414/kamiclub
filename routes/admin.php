@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\Auth\RegisteredUserController;
 use App\Http\Controllers\Admin\Auth\VerifyEmailController;
 use App\Http\Controllers\Admin\StylistController;
 use App\Http\Controllers\Admin\ParkingController;
+use App\Http\Controllers\Admin\GuestsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,14 +26,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('admin.welcome');
-});
+// Route::get('/', function () {
+//     return view('admin.welcome');
+// });
 
 Route::resource('stylist', StylistController::class)
-->middleware(['auth:admin', 'verified']);
+->middleware(['auth:admin', 'verified'])->except(['show']); //except 不要なメソッド
 
 Route::resource('parking', ParkingController::class)
+->middleware(['auth:admin', 'verified'])->except(['create', 'store', 'show', 'edit', 'destroy']);
+
+Route::resource('guest', GuestsController::class)
 ->middleware(['auth:admin', 'verified']);
 
 // Breezeで自動追加 '/dashboard'
