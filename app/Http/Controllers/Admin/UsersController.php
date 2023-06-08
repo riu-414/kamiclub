@@ -5,11 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin;
-use App\Models\Stylist; //Eloquent
+use App\Models\User; //Eloquent
 use Illuminate\Support\Facades\DB; //QueryBuilder
 use NunoMaduro\Collision\Adapters\Phpunit\Style;
 
-class GuestsController extends Controller
+class UsersController extends Controller
 {
     public function __construct()
     {
@@ -21,7 +21,9 @@ class GuestsController extends Controller
      */
     public function index()
     {
-        return view('admin.guest.index');
+        $users = User::select('id', 'name', 'created_at')->get();
+
+        return view('admin.users.index', compact('users'));
     }
 
     /**
@@ -45,7 +47,9 @@ class GuestsController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        return view('admin.users.show',compact('user'));
     }
 
     /**
@@ -69,6 +73,10 @@ class GuestsController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        User::findOrFail($id)->delete(); //ソフトデリート
+
+        return redirect()
+        ->route('admin.users.index')
+        ->with(['message' => 'お客様情報を削除', 'status' => 'alert']);
     }
 }
