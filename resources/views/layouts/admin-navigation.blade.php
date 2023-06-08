@@ -20,7 +20,7 @@
                         スタイリスト
                     </x-nav-link>
 
-                    <x-nav-link :href="route('admin.guest.index')" :active="request()->routeIs('admin.guest.index')">
+                    <x-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.index')">
                         お客様一覧
                     </x-nav-link>
 
