@@ -10,11 +10,11 @@ class ParkingController extends Controller
 {
     public function index()
     {
-        // $parkings = Parking::select('id', 'name', 'situation')->get();
+        $parkings = Parking::select('id', 'name', 'situation')->get();
 
-        // return view('user.parking.index',
-        // compact('parkings'));
+        return view('user.parking.index',
+        compact('parkings'));
 
-        return view('user.parking.index');
+        // return view('user.parking.index');
     }
 }
