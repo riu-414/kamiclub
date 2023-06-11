@@ -3,6 +3,8 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ComponentTestController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\User\ParkingController;
+use App\Http\Controllers\User\ReservationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +20,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('user.welcome');
 });
+
+Route::resource('parking', ParkingController::class)
+->middleware(['auth:users', 'verified']);
+
+Route::resource('reservation', ReservationController::class)
+->middleware(['auth:users', 'verified']);
 
 // Breezeで自動追加 '/dashboard'
 Route::get('/dashboard', function () {
