@@ -11,6 +11,9 @@
     height: 64px;
 }
 
+
+/* welcome.blade.php */
+
 .top-page {
     background-image: url('../images/bg-image.jpg');
     background-color:rgba(0255,250,230,1);
@@ -27,7 +30,7 @@
     height: 400px;
     object-fit: cover;
     border-radius: 4px;
-    margin-bottom: 32px;
+    margin: 32px 0 32px 0;
 }
 
 .content {
@@ -50,4 +53,43 @@
 .item2 {
     width: calc(100% / 2 - 10px / 2);
     /* border: 1px solid black; */
+}
+
+.btn {
+    margin-bottom: 8px;
+}
+
+/* login.blade.php */
+
+.login-page {
+    background-image: url('../images/bg-image.jpg');
+    background-color:rgba(0255,250,230,1);
+    background-blend-mode:darken;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    min-height: calc(100vh - 200px);
+}
+
+.login-h2 {
+    margin-bottom: 32px;
+}
+
+
+/* register.blade.php */
+
+.register-page {
+    background-image: url('../images/bg-image.jpg');
+    background-color:rgba(0255,250,230,1);
+    background-blend-mode:darken;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    min-height: calc(100vh - 200px);
+}
+
+.register-h2 {
+    margin-bottom: 32px;
 }
