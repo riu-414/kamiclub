@@ -1,47 +1,56 @@
-<x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+@extends('layouts.layout')
 
-    <form method="POST" action="{{ route('user.login') }}">
-        @csrf
+@section('title')
+    kamiclub
+@endsection
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" value="メールアドレス" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+@section('content')
+    <div class="login-page d-flex flex-column justify-content-center align-items-center ">
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" value="パスワード" />
+        <h2 class="login-h2">会員ログイン</h2>
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
+        <form method="POST" action="{{ route('user.login') }}" class="login-form">
+            @csrf
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
+            <!-- Email Address -->
+            <div>
+                <x-input-label for="email" value="メールアドレス" />
+                <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
+                <x-input-error :messages="$errors->get('email')" class="mt-2" />
+            </div>
 
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800" name="remember">
-                <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">ログイン状態を保持する</span>
-            </label>
-        </div>
+            <!-- Password -->
+            <div class="mt-4">
+                <x-input-label for="password" value="パスワード" />
 
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('user.password.request'))
-                <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('user.password.request') }}">
-                    パスワードをお忘れですか？
-                </a>
-            @endif
+                <x-text-input id="password" class="block mt-1 w-full"
+                                type="password"
+                                name="password"
+                                required autocomplete="current-password" />
 
-            <x-primary-button class="ml-3">
-                ログイン
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+                <x-input-error :messages="$errors->get('password')" class="mt-2" />
+            </div>
+
+            <!-- Remember Me -->
+            <div class="block mt-4">
+                <label for="remember_me" class="inline-flex items-center">
+                    <input id="remember_me" type="checkbox" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800" name="remember">
+                    <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">ログイン状態を保持する</span>
+                </label>
+            </div>
+
+            <div class="flex items-center justify-end mt-4">
+                @if (Route::has('user.password.request'))
+                    <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('user.password.request') }}">
+                        パスワードをお忘れですか？
+                    </a>
+                @endif
+
+                <x-primary-button class="btn btn-secondary  ml-4">
+                    ログイン
+                </x-primary-button>
+            </div>
+        </form>
+
+    </div>
+@endsection
