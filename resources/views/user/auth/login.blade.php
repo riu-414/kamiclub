@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 
 @section('title')
-    kamiclub
+    kamiclub | ログイン
 @endsection
 
 @section('content')

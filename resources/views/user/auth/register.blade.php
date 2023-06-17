@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 
 @section('title')
-    kamiclub
+    kamiclub | 新規登録
 @endsection
 
 @section('content')
