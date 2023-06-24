@@ -1,0 +1,35 @@
+* {
+    box-sizing: border-box;
+}
+
+.header {
+    height: 72px;
+}
+
+.footer {
+    padding-top: 16px;
+    height: 64px;
+}
+
+
+/* app.blade.php */
+
+.app-page {
+    background-image: url('../images/bg-image.jpg');
+    background-color:rgba(0255,250,230,1);
+    background-blend-mode:darken;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    min-height: calc(100vh - 80px);
+}
+
+.header {
+    border: 1px solid black;
+}
+
+.main {
+    border: 1px solid black;
+}
+
