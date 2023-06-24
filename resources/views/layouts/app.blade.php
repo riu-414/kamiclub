@@ -12,15 +12,18 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <!-- CSS -->
+        <link rel="stylesheet" href="{{ asset('css/appStyle.css') }}">
 
         {{-- livewire --}}
         @livewireStyles
+        
+        <!-- Scripts -->
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
 
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
+    <body class="app-page font-sans antialiased">
+        <div class="min-h-screen ">
 
             @if(auth('admin')->user())
                 @include('layouts.admin-navigation')
@@ -29,8 +32,9 @@
             @endif
 
             <!-- Page Heading -->
+            {{-- 管理者用 : 〜 --}}
             @if (isset($header))
-                <header class="bg-white dark:bg-gray-800 shadow">
+                <header class="header">
                     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                         {{ $header }}
                     </div>

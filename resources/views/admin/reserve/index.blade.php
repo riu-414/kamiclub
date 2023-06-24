@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl leading-tight">
-            管理者用 : ホーム
+            管理者用 : 予約確認
         </h2>
     </x-slot>
 
@@ -12,8 +12,21 @@
 
                     今日の予定
 
+                    {{-- <livewire:calendar /> --}}
+                    {{-- @livewire('calendar') --}}
+
                 </div>
             </div>
+
+            <div class="main mt-6 overflow-hidden sm:rounded-lg">
+                <div class="p-6">
+
+                    今日の予定<br>
+
+                </div>
+            </div>
+
+
         </div>
     </div>
 </x-app-layout>
