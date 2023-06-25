@@ -9,6 +9,7 @@ use App\Models\Reserve; //Eloquent
 use Illuminate\Support\Facades\DB; //QueryBuilder
 use NunoMaduro\Collision\Adapters\Phpunit\Style;
 
+// "php artisan make:model Reserve -a"で最初からあったuse
 use App\Http\Requests\StoreReserveRequest;
 use App\Http\Requests\UpdateReserveRequest;
 // use App\Models\Reserve;
@@ -26,7 +27,11 @@ class ReserveController extends Controller
      */
     public function index()
     {
-        return view('admin.reserve.index');
+        $reserves = DB::table('reserves')
+        ->orderBy('start_date', 'asc')
+        ->paginate(10);
+
+        return view('admin.reserve.index' , compact('reserves'));
     }
 
     /**
@@ -34,7 +39,7 @@ class ReserveController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.reserve.create');
     }
 
     /**

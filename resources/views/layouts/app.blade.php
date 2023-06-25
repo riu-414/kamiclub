@@ -17,9 +17,9 @@
 
         {{-- livewire --}}
         @livewireStyles
-        
+
         <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/flatpickr.js'])
     </head>
 
     <body class="app-page font-sans antialiased">
@@ -32,7 +32,7 @@
             @endif
 
             <!-- Page Heading -->
-            {{-- 管理者用 : 〜 --}}
+            {{-- 管理者用orユーザー用 : 〜 --}}
             @if (isset($header))
                 <header class="header">
                     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
