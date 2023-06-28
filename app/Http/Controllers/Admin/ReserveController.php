@@ -8,6 +8,7 @@ use App\Models\Admin;
 use App\Models\Reserve; //Eloquent
 use Illuminate\Support\Facades\DB; //QueryBuilder
 use NunoMaduro\Collision\Adapters\Phpunit\Style;
+use Carbon\Carbon;
 
 // "php artisan make:model Reserve -a"で最初からあったuse
 use App\Http\Requests\StoreReserveRequest;
@@ -22,9 +23,6 @@ class ReserveController extends Controller
         $this->middleware('auth:admin');
     }
 
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $reserves = DB::table('reserves')
@@ -34,49 +32,69 @@ class ReserveController extends Controller
         return view('admin.reserve.index' , compact('reserves'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('admin.reserve.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreReserveRequest $request)
     {
-        //
+        $check = DB::table('reserves')
+        ->whereDate('start_date', $request['reserve_date'])
+        ->whereTime('end_date', '>', $request['start_time'])
+        ->whereTime('start_date', '<', $request['end_time'])
+        ->exists();
+
+        // 重複しているとtrue, していないとfalse
+        // dd($check);
+
+        if($check){
+            return view('admin.reserve.create');
+        }
+
+        $start = $request['reserve_date'] . " " . $request['start_time'];
+        $startDate = Carbon::createFromFormat('Y-m-d H:i', $start);
+
+        $end = $request['reserve_date'] . " " . $request['end_time'];
+        $endDate = Carbon::createFromFormat('Y-m-d H:i', $end);
+
+        Reserve::create([
+            'name' => $request->name,
+            'menu' => $request->menu,
+            'message' => $request->message,
+            'start_date' => $startDate,
+            'end_date' => $endDate,
+        ]);
+
+        return redirect()
+        ->route('admin.reserve.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Reserve $reserve)
     {
-        //
+        // dd($reserve);
+
+        $reserve = Reserve::findOrFail($reserve->id);
+        $reserveDate = $reserve->reserveDate;
+        $startTime = $reserve->startTime;
+        $endTime = $reserve->endTime;
+
+        // dd($reserveDate, $startTime, $endTime);
+
+        return view('admin.reserve.show',
+        compact('reserve', 'reserveDate', 'startTime', 'endTime'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Reserve $reserve)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdateReserveRequest $request, Reserve $reserve)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Reserve $reserve)
     {
         //
