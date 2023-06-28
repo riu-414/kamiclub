@@ -13,11 +13,12 @@
                     <section class="body-font">
                         <div class="container px-5 py-24 mx-auto">
 
-                            <div class="flex justify-end mb-4">
-                                <button onclick="location.href='{{ route('admin.reserve.create') }}'" class="bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">新規登録</button>
-                            </div>
+                            <div class="w-full mx-auto overflow-auto">
 
-                            <div class="lg:w-2/3 w-full mx-auto overflow-auto">
+                                <div class="flex justify-end mb-4">
+                                    <button onclick="location.href='{{ route('admin.reserve.create') }}'" class="bg-blue-300 border-0 py-2 px-8 focus:outline-none hover:bg-blue-400 rounded text-lg">新規登録</button>
+                                </div>
+
                                 <table class="table-auto w-full text-left whitespace-no-wrap">
                                     <thead>
                                     <tr>
@@ -37,6 +38,9 @@
                                                 <td class="px-4 py-3">{{ $reserve->message }}</td>
                                                 <td class="px-4 py-3">{{ $reserve->start_date }}</td>
                                                 <td class="px-4 py-3">{{ $reserve->end_date }}</td>
+                                                <td class="px-4 py-3">
+                                                    <button onclick="location.href='{{ route('admin.reserve.show', ['reserve' => $reserve->id]) }}'" class="text-gray bg-blue-300 border-0 py-2 px-8 focus:outline-none hover:bg-blue-400 rounded">詳細</button>
+                                                </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
