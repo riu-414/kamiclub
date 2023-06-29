@@ -11,7 +11,7 @@
                 <div class="p-6">
 
                     <div class="mb-4 flex justify-center">
-                        予約登録
+                        予約詳細
                     </div>
 
                     <div class="lg:w-1/2 md:w-2/3 mx-auto">

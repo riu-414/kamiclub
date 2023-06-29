@@ -87,12 +87,48 @@ class ReserveController extends Controller
 
     public function edit(Reserve $reserve)
     {
-        //
+        $reserve = Reserve::findOrFail($reserve->id);
+        $reserveDate = $reserve->editReserveDate;
+        $startTime = $reserve->startTime;
+        $endTime = $reserve->endTime;
+
+        return view('admin.reserve.edit',
+        compact('reserve', 'reserveDate', 'startTime', 'endTime'));
     }
 
     public function update(UpdateReserveRequest $request, Reserve $reserve)
     {
-        //
+        $check = DB::table('reserves')
+        ->whereDate('start_date', $request['reserve_date'])
+        ->whereTime('end_date', '>', $request['start_time'])
+        ->whereTime('start_date', '<', $request['end_time'])
+        ->count();
+
+        if($check > 1){
+            $reserve = Reserve::findOrFail($reserve->id);
+            $reserveDate = $reserve->editReserveDate;
+            $startTime = $reserve->startTime;
+            $endTime = $reserve->endTime;
+            return view('admin.reserve.edit', compact('reserve', 'reserveDate', 'startTime', 'endTime'));
+        }
+
+        $start = $request['reserve_date'] . " " . $request['start_time'];
+        $startDate = Carbon::createFromFormat('Y-m-d H:i', $start);
+
+        $end = $request['reserve_date'] . " " . $request['end_time'];
+        $endDate = Carbon::createFromFormat('Y-m-d H:i', $end);
+
+        $reserve = Reserve::findOrFail($reserve->id);
+        $reserve->name = $request->name;
+        $reserve->menu = $request->menu;
+        $reserve->message = $request->message;
+        $reserve->start_date = $startDate;
+        $reserve->end_date = $endDate;
+
+        $reserve->save();
+
+        return redirect()
+        ->route('admin.reserve.index');
     }
 
     public function destroy(Reserve $reserve)
