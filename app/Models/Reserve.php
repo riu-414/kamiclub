@@ -28,6 +28,13 @@ class Reserve extends Authenticatable
         );
     }
 
+    protected function editReserveDate() : Attribute
+    {
+        return Attribute::make(
+            get: fn () => Carbon::parse($this->start_date)->format('Y-m-d')
+        );
+    }
+
     protected function startTime() : Attribute
     {
         return Attribute::make(
