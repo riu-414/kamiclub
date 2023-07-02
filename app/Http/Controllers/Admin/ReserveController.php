@@ -25,7 +25,10 @@ class ReserveController extends Controller
 
     public function index()
     {
+        $today = Carbon::today();
+
         $reserves = DB::table('reserves')
+        ->whereDate('start_date', '>', $today)
         ->orderBy('start_date', 'asc')
         ->paginate(10);
 
@@ -88,6 +91,12 @@ class ReserveController extends Controller
     public function edit(Reserve $reserve)
     {
         $reserve = Reserve::findOrFail($reserve->id);
+
+        $today = Carbon::today()->format('Y年m月d日');
+        if($reserve->reserveDate < $today){
+            return abort(404);
+        }
+
         $reserveDate = $reserve->editReserveDate;
         $startTime = $reserve->startTime;
         $endTime = $reserve->endTime;
@@ -129,6 +138,18 @@ class ReserveController extends Controller
 
         return redirect()
         ->route('admin.reserve.index');
+    }
+
+    public function past()
+    {
+        $today = Carbon::today();
+
+        $reserves = DB::table('reserves')
+        ->whereDate('start_date', '<', $today)
+        ->orderBy('start_date', 'desc')
+        ->paginate(10);
+
+        return view('admin.reserve.past', compact('reserves'));
     }
 
     public function destroy(Reserve $reserve)

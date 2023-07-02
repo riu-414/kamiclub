@@ -42,6 +42,9 @@ Route::resource('parking', ParkingController::class)
 Route::resource('users', UsersController::class)
 ->middleware(['auth:admin', 'verified']);
 
+Route::get('reserve/past', [ReserveController::class, 'past'])->name('reserve.past')
+->middleware(['auth:admin', 'verified']);
+
 Route::resource('reserve', ReserveController::class)
 ->middleware(['auth:admin', 'verified']);
 
