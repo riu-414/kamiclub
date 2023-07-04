@@ -14,6 +14,12 @@ flatpickr("#reserve_date", {
     maxDate: new Date().fp_incr(30) // 14 days from now
 });
 
+flatpickr("#calendar", {
+    // "locale": Japanese,
+    // minDate: "today",
+    maxDate: new Date().fp_incr(30) // 14 days from now
+});
+
 const setting = {
     // "locale": Japanese,
     enableTime: true,

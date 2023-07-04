@@ -59,10 +59,8 @@
             <div class="main mt-6 overflow-hidden sm:rounded-lg">
                 <div class="p-6">
 
-                    今日の予定
-
                     {{-- <livewire:calendar /> --}}
-                    {{-- @livewire('calendar') --}}
+                    @livewire('calendar')
 
                 </div>
             </div>
