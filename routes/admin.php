@@ -45,6 +45,9 @@ Route::resource('users', UsersController::class)
 Route::get('reserve/past', [ReserveController::class, 'past'])->name('reserve.past')
 ->middleware(['auth:admin', 'verified']);
 
+Route::get('reserve/{id}', [ReserveController::class, 'detail'])->name('reserve.detail')
+->middleware(['auth:admin', 'verified']);
+
 Route::resource('reserve', ReserveController::class)
 ->middleware(['auth:admin', 'verified']);
 

@@ -10,7 +10,7 @@
             <div class="main overflow-hidden sm:rounded-lg">
                 <div class="p-6">
 
-                    今日の予定
+                    ホーム
 
                 </div>
             </div>
