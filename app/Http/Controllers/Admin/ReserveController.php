@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Admin;
 use App\Models\Reserve; //Eloquent
 use Illuminate\Support\Facades\DB; //QueryBuilder
-use NunoMaduro\Collision\Adapters\Phpunit\Style;
 use Carbon\Carbon;
+
+use Illuminate\Http\Request;
+use App\Models\Admin;
+use NunoMaduro\Collision\Adapters\Phpunit\Style;
 
 // "php artisan make:model Reserve -a"で最初からあったuse
 use App\Http\Requests\StoreReserveRequest;
@@ -150,6 +151,21 @@ class ReserveController extends Controller
         ->paginate(10);
 
         return view('admin.reserve.past', compact('reserves'));
+    }
+
+    public function detail($id)
+    {
+        // dd($reserve);
+
+        $reserve = Reserve::findOrFail($id);
+        $reserveDate = $reserve->reserveDate;
+        $startTime = $reserve->startTime;
+        $endTime = $reserve->endTime;
+
+        // dd($reserveDate, $startTime, $endTime);
+
+        return view('admin.reserve.show',
+        compact('reserve', 'reserveDate', 'startTime', 'endTime'));
     }
 
     public function destroy(Reserve $reserve)
