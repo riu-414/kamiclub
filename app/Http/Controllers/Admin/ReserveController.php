@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Reserve; //Eloquent
 use Illuminate\Support\Facades\DB; //QueryBuilder
 use Carbon\Carbon;
+use Carbon\CarbonImmutable;
 
 use Illuminate\Http\Request;
 use App\Models\Admin;
@@ -43,14 +44,19 @@ class ReserveController extends Controller
 
     public function store(StoreReserveRequest $request)
     {
+        $inputTime = $request['start_time'];
+        $endTime = Carbon::parse($inputTime);
+        $endTime->addHour();
+        $endTimeString = $endTime->toTimeString();
+
         $check = DB::table('reserves')
         ->whereDate('start_date', $request['reserve_date'])
         ->whereTime('end_date', '>', $request['start_time'])
-        ->whereTime('start_date', '<', $request['end_time'])
+        ->whereTime('start_date', '<', $endTimeString)
         ->exists();
 
-        // 重複しているとtrue, していないとfalse
-        // dd($check);
+        // $check:重複しているとtrue, していないとfalse
+        // dd($check, $request['reserve_date'], $inputTime, $endTimeString);
 
         if($check){
             return view('admin.reserve.create');
@@ -59,8 +65,19 @@ class ReserveController extends Controller
         $start = $request['reserve_date'] . " " . $request['start_time'];
         $startDate = Carbon::createFromFormat('Y-m-d H:i', $start);
 
-        $end = $request['reserve_date'] . " " . $request['end_time'];
-        $endDate = Carbon::createFromFormat('Y-m-d H:i', $end);
+        $end = $request['reserve_date'] . " " . $endTimeString;
+        $endDate = Carbon::createFromFormat('Y-m-d H:i:s', $end);
+
+        // $end = $request['reserve_date'] . " " . $request['end_time'];
+        // $endDate = Carbon::createFromFormat('Y-m-d H:i', $end);
+
+        // 1時間後
+        // $dt = new Carbon('2018-08-08 09:05:53');
+        // echo $dt->addHour();
+
+        // 指定分後
+        // $dt = new Carbon('2018-08-08 09:05:53');
+        // echo $dt->addMinute(指定分);
 
         Reserve::create([
             'name' => $request->name,
@@ -71,7 +88,8 @@ class ReserveController extends Controller
         ]);
 
         return redirect()
-        ->route('admin.reserve.index');
+        ->route('admin.reserve.index')
+        ->with(['message' => '予約完了', 'status' => 'info']);
     }
 
     public function show(Reserve $reserve)
@@ -138,7 +156,8 @@ class ReserveController extends Controller
         $reserve->save();
 
         return redirect()
-        ->route('admin.reserve.index');
+        ->route('admin.reserve.index')
+        ->with(['message' => '変更完了', 'status' => 'info']);
     }
 
     public function past()

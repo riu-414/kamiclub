@@ -55,8 +55,7 @@ class StylistController extends Controller
         ]);
 
         return redirect()
-        ->route('admin.stylist.index')
-        ->with(['message' => 'スタイリスト登録を実施', 'status' => 'info']);
+        ->route('admin.stylist.index');
     }
 
     /**

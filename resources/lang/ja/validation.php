@@ -156,7 +156,10 @@ return [
     'attributes' => [
         'name' => '名前',
         'email' => 'メールアドレス',
-        'password' => 'パスワード'
+        'password' => 'パスワード',
+        'message' => 'お店へのご要望',
+        'reserve_date' => '日付',
+        'start_time' => '開始時間',
     ],
 
 ];
