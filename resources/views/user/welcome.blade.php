@@ -29,7 +29,7 @@
                 <br>定休日 : 月曜日・第１火曜日・ 第3日曜日・月1日不定休
                 <br>完全予約制
                 </p>
-                <a href="{{ route('user.register') }}" class="btn btn-secondary">このサイトから予約する</a>
+                <a href="{{ route('user.register') }}" class="btn btn-secondary">このサイトから予約</a>
                 <br>
                 <a href="https://beauty.hotpepper.jp/slnH000061196/" class="btn btn-secondary">ホットペッパーから予約</a>
             </div>

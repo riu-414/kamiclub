@@ -57,6 +57,7 @@
 
 .btn {
     margin-bottom: 8px;
+    width: 250px;
 }
 
 /* login.blade.php */
