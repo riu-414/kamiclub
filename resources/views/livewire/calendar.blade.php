@@ -9,7 +9,7 @@
 
     <input type="text" id="calendar" name="calendar" value="{{ $currentDate }}" wire:change="getDate($event.target.value)" class="block mt-4 mx-auto">
 
-    <div class="flex border border-green-400 mt-4 mx-auto">
+    <div class="flex border border-gray-600 mt-4 mx-auto">
         <x-calendar-time />
         @for ($i = 0; $i < 7; $i++)
             <div class="w-32">
@@ -40,7 +40,7 @@
                         <div class="py-1 px-2 h-8 border border-gray-300 text-center">-</div>
                     @endif
                 @else
-                    <div class="py-1 px-2 h-8 border border-gray-300"></div>
+                    <div class="py-1 px-2 h-8 border border-gray-300 text-center">-</div>
                 @endif
             @endfor
             </div>
