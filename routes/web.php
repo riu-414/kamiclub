@@ -24,6 +24,9 @@ Route::get('/', function () {
 Route::resource('parking', ParkingController::class)
 ->middleware(['auth:users', 'verified']);
 
+Route::get('reservation/future', [ReservationController::class, 'future'])->name('reservation.future')
+->middleware(['auth:users', 'verified']);
+
 Route::resource('reservation', ReservationController::class)
 ->middleware(['auth:users', 'verified']);
 

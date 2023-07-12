@@ -33,7 +33,7 @@
                                     </tbody>
                                 </table>
 
-                                <div class="p-2 w-full flex justify-end mt-4">
+                                <div class="p-2 w-full flex justify-center mt-4">
                                     <button type="button" onclick="location.href='{{ route('user.dashboard') }}'" class="text-gray bg-gray-200 border-0 py-2 px-8 focus:outline-none hover:bg-gray-400 rounded text-lg">戻る</button>
                                 </div>
                             </div>
