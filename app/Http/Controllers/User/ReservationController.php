@@ -122,16 +122,23 @@ class ReservationController extends Controller
         compact('reserve', 'reserveDate', 'startTime', 'endTime'));
     }
 
-    public function update(UpdateReserveRequest $request, Reserve $reserve)
+    public function update(UpdateReserveRequest $request, Reserve $reservation)
     {
+        // dd($request, $reservation->id);
+
+        $inputTime = $request['start_time'];
+        $endTime = Carbon::parse($inputTime);
+        $endTime->addHour();
+        $endTimeString = $endTime->toTimeString();
+
         $check = DB::table('reserves')
         ->whereDate('start_date', $request['reserve_date'])
         ->whereTime('end_date', '>', $request['start_time'])
-        ->whereTime('start_date', '<', $request['end_time'])
+        ->whereTime('start_date', '<', $endTimeString)
         ->count();
 
         if($check > 1){
-            $reserve = Reserve::findOrFail($reserve->id);
+            $reserve = Reserve::findOrFail($reservation->id);
             $reserveDate = $reserve->editReserveDate;
             $startTime = $reserve->startTime;
             $endTime = $reserve->endTime;
@@ -141,20 +148,19 @@ class ReservationController extends Controller
         $start = $request['reserve_date'] . " " . $request['start_time'];
         $startDate = Carbon::createFromFormat('Y-m-d H:i', $start);
 
-        $end = $request['reserve_date'] . " " . $request['end_time'];
-        $endDate = Carbon::createFromFormat('Y-m-d H:i', $end);
+        $end = $request['reserve_date'] . " " . $endTimeString;
+        $endDate = Carbon::createFromFormat('Y-m-d H:i:s', $end);
 
-        $reserve = Reserve::findOrFail($reserve->id);
+        $reserve = Reserve::findOrFail($reservation->id);
         $reserve->name = $request->name;
         $reserve->menu = $request->menu;
         $reserve->message = $request->message;
         $reserve->start_date = $startDate;
         $reserve->end_date = $endDate;
-
         $reserve->save();
 
         return redirect()
-        ->route('user.reservation.index')
+        ->route('user.reservation.future')
         ->with(['message' => '変更完了', 'status' => 'info']);
     }
 

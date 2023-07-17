@@ -126,10 +126,17 @@ class ReserveController extends Controller
 
     public function update(UpdateReserveRequest $request, Reserve $reserve)
     {
+        // dd($request, $reserve);
+
+        $inputTime = $request['start_time'];
+        $endTime = Carbon::parse($inputTime);
+        $endTime->addHour();
+        $endTimeString = $endTime->toTimeString();
+
         $check = DB::table('reserves')
         ->whereDate('start_date', $request['reserve_date'])
         ->whereTime('end_date', '>', $request['start_time'])
-        ->whereTime('start_date', '<', $request['end_time'])
+        ->whereTime('start_date', '<', $endTimeString)
         ->count();
 
         if($check > 1){
@@ -143,8 +150,8 @@ class ReserveController extends Controller
         $start = $request['reserve_date'] . " " . $request['start_time'];
         $startDate = Carbon::createFromFormat('Y-m-d H:i', $start);
 
-        $end = $request['reserve_date'] . " " . $request['end_time'];
-        $endDate = Carbon::createFromFormat('Y-m-d H:i', $end);
+        $end = $request['reserve_date'] . " " . $endTimeString;
+        $endDate = Carbon::createFromFormat('Y-m-d H:i:s', $end);
 
         $reserve = Reserve::findOrFail($reserve->id);
         $reserve->name = $request->name;

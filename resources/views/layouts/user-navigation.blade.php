@@ -4,7 +4,8 @@
         <div class="flex justify-between h-16">
             <div class="flex">
                 <div class="text-xl flex items-center">
-                    <h1>kamiclub</h1>
+                    {{-- <h1>kamiclub</h1> --}}
+                    <a href="{{ route('user.dashboard') }}" class="text-3xl">kamiclub</a>
                 </div>
 
                 <!-- Navigation Links -->

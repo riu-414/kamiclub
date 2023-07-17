@@ -17,6 +17,14 @@
 
                             <div class="lg:w-2/3 w-full mx-auto overflow-auto">
 
+                                <x-flash-message status="session('status')" />
+
+                                <div class="mt-8 mb-8 text-center text-red-600">
+                                    ※当日の変更やキャンセルは電話でお願いします。
+                                    <br>
+                                    TEL:025-333-8325
+                                </div>
+
                                 <table class="table-auto w-full text-left whitespace-no-wrap">
                                     <thead>
                                     <tr>

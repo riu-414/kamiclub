@@ -14,6 +14,10 @@
                         予約編集
                     </div>
 
+                    @foreach ($errors->all() as $error)
+                        <div class="text-red-500 text-center">{{$error}}</div>
+                    @endforeach
+
                     <div class="lg:w-1/2 md:w-2/3 mx-auto">
                         <form method="post" action="{{ route('admin.reserve.update',  ['reserve' => $reserve->id]) }}">
                             @csrf
@@ -29,7 +33,10 @@
 
                                     <div class="relative mt-4">
                                         <label for="menu" class="leading-7 text-sm text-gray-600">メニュー</label>
-                                        <input type="text" id="menu" name="menu" value="{{ $reserve->menu }}" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                        <select id="menu" name="menu" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                            <option value="カット - ¥4,000 - 1.0h">カット - ¥4,000 - 1.0h</option>
+                                            <option value="パーマ - ¥10,000 - 1.0h">パーマ - ¥10,000 - 1.0h</option>
+                                        </select>
                                     </div>
 
                                     <div class="relative mt-4">
@@ -47,10 +54,10 @@
                                         <input type="text" id="start_time" name="start_time" value="{{ $startTime }}" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                     </div>
 
-                                    <div class="relative mt-4">
+                                    {{-- <div class="relative mt-4">
                                         <label for="end_time">終了時間</label>
                                         <input type="text" id="end_time" name="end_time" value="{{ $endTime }}" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                    </div>
+                                    </div> --}}
                                 </div>
 
                                 <div class="p-2 w-full flex justify-center mt-4">
