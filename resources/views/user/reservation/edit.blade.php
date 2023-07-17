@@ -14,9 +14,12 @@
                         予約編集
                     </div>
 
+                    @foreach ($errors->all() as $error)
+                        <div class="text-red-500 text-center">{{$error}}</div>
+                    @endforeach
+
                     <div class="lg:w-1/2 md:w-2/3 mx-auto">
                         <form method="post" action="{{ route('user.reservation.update',  ['reservation' => $reserve->id]) }}">
-                        {{-- <form method="post" action=""> --}}
                             @csrf
                             @method('PUT')
 
