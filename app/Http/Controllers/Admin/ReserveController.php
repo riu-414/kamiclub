@@ -4,13 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Reserve; //Eloquent
+use App\Models\Stylist;
 use Illuminate\Support\Facades\DB; //QueryBuilder
 use Carbon\Carbon;
-use Carbon\CarbonImmutable;
-
-use Illuminate\Http\Request;
-use App\Models\Admin;
-use NunoMaduro\Collision\Adapters\Phpunit\Style;
 
 // "php artisan make:model Reserve -a"で最初からあったuse
 use App\Http\Requests\StoreReserveRequest;
@@ -39,7 +35,9 @@ class ReserveController extends Controller
 
     public function create()
     {
-        return view('admin.reserve.create');
+        $stylists = Stylist::select('id', 'name')->get();
+
+        return view('admin.reserve.create', compact('stylists'));
     }
 
     public function store(StoreReserveRequest $request)
@@ -55,9 +53,6 @@ class ReserveController extends Controller
         ->whereTime('start_date', '<', $endTimeString)
         ->exists();
 
-        // $check:重複しているとtrue, していないとfalse
-        // dd($check, $request['reserve_date'], $inputTime, $endTimeString);
-
         if($check){
             return view('admin.reserve.create');
         }
@@ -67,9 +62,6 @@ class ReserveController extends Controller
 
         $end = $request['reserve_date'] . " " . $endTimeString;
         $endDate = Carbon::createFromFormat('Y-m-d H:i:s', $end);
-
-        // $end = $request['reserve_date'] . " " . $request['end_time'];
-        // $endDate = Carbon::createFromFormat('Y-m-d H:i', $end);
 
         // 1時間後
         // $dt = new Carbon('2018-08-08 09:05:53');
@@ -82,6 +74,7 @@ class ReserveController extends Controller
         Reserve::create([
             'name' => $request->name,
             'menu' => $request->menu,
+            'stylist' => $request->stylist,
             'message' => $request->message,
             'start_date' => $startDate,
             'end_date' => $endDate,
@@ -94,14 +87,10 @@ class ReserveController extends Controller
 
     public function show(Reserve $reserve)
     {
-        // dd($reserve);
-
         $reserve = Reserve::findOrFail($reserve->id);
         $reserveDate = $reserve->reserveDate;
         $startTime = $reserve->startTime;
         $endTime = $reserve->endTime;
-
-        // dd($reserveDate, $startTime, $endTime);
 
         return view('admin.reserve.show',
         compact('reserve', 'reserveDate', 'startTime', 'endTime'));
@@ -110,6 +99,7 @@ class ReserveController extends Controller
     public function edit(Reserve $reserve)
     {
         $reserve = Reserve::findOrFail($reserve->id);
+        $stylists = Stylist::select('id', 'name')->get();
 
         $today = Carbon::today()->format('Y年m月d日');
         if($reserve->reserveDate < $today){
@@ -121,12 +111,11 @@ class ReserveController extends Controller
         $endTime = $reserve->endTime;
 
         return view('admin.reserve.edit',
-        compact('reserve', 'reserveDate', 'startTime', 'endTime'));
+        compact('reserve', 'stylists', 'reserveDate', 'startTime', 'endTime'));
     }
 
     public function update(UpdateReserveRequest $request, Reserve $reserve)
     {
-        // dd($request, $reserve);
 
         $inputTime = $request['start_time'];
         $endTime = Carbon::parse($inputTime);
@@ -156,6 +145,7 @@ class ReserveController extends Controller
         $reserve = Reserve::findOrFail($reserve->id);
         $reserve->name = $request->name;
         $reserve->menu = $request->menu;
+        $reserve->stylist = $request->stylist;
         $reserve->message = $request->message;
         $reserve->start_date = $startDate;
         $reserve->end_date = $endDate;
@@ -181,14 +171,10 @@ class ReserveController extends Controller
 
     public function detail($id)
     {
-        // dd($reserve);
-
         $reserve = Reserve::findOrFail($id);
         $reserveDate = $reserve->reserveDate;
         $startTime = $reserve->startTime;
         $endTime = $reserve->endTime;
-
-        // dd($reserveDate, $startTime, $endTime);
 
         return view('admin.reserve.show',
         compact('reserve', 'reserveDate', 'startTime', 'endTime'));

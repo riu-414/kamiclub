@@ -27,12 +27,12 @@
 
                                 <div class="p-2 w-1/2 mx-auto">
                                     <div class="relative">
-                                        <label for="name" class="leading-7 text-sm text-gray-600">名前</label>
+                                        <label for="name">名前</label>
                                         <input type="text" id="name" name="name" value="{{ $reserve->name }}" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                     </div>
 
                                     <div class="relative mt-4">
-                                        <label for="menu" class="leading-7 text-sm text-gray-600">メニュー</label>
+                                        <label for="menu">メニュー</label>
                                         <select id="menu" name="menu" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                             <option value="カット - ¥4,000 - 1.0h">カット - ¥4,000 - 1.0h</option>
                                             <option value="パーマ - ¥10,000 - 1.0h">パーマ - ¥10,000 - 1.0h</option>
@@ -40,7 +40,17 @@
                                     </div>
 
                                     <div class="relative mt-4">
-                                        <label for="message" class="leading-7 text-sm text-gray-600">お店へのご要望</label>
+                                        <label for="stylist">スタイリスト</label>
+                                        <select id="stylist" name="stylist" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                            <option value="指定しない">指定しない</option>
+                                            @foreach ($stylists as $stylist)
+                                                <option value="{{ $stylist->name }}">{{ $stylist->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="relative mt-4">
+                                        <label for="message">お店へのご要望</label>
                                         <textarea name="message" id="message" rows="3" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">{!! nl2br(e($reserve->message)) !!}</textarea>
                                     </div>
 

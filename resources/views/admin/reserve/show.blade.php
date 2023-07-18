@@ -21,17 +21,22 @@
 
                                 <div class="p-2 w-1/2 mx-auto">
                                     <div class="relative">
-                                        <label for="name" class="leading-7 text-sm text-gray-600">名前</label>
+                                        <label for="name">名前</label>
                                         <div class="w-full bg-gray-100 bg-opacity-50 rounded focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"> {{ $reserve->name }}</div>
                                     </div>
 
                                     <div class="relative mt-4">
-                                        <label for="menu" class="leading-7 text-sm text-gray-600">メニュー</label>
+                                        <label for="menu">メニュー</label>
                                         <div class="w-full bg-gray-100 bg-opacity-50 rounded focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"> {{ $reserve->menu }}</div>
                                     </div>
 
                                     <div class="relative mt-4">
-                                        <label for="message" class="leading-7 text-sm text-gray-600">お店へのご要望</label>
+                                        <label for="stylist">スタイリスト</label>
+                                        <div class="w-full bg-gray-100 bg-opacity-50 rounded focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"> {{ $reserve->stylist }}</div>
+                                    </div>
+
+                                    <div class="relative mt-4">
+                                        <label for="message">お店へのご要望</label>
                                         <div class="w-full bg-gray-100 bg-opacity-50 rounded focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"> {!! nl2br(e($reserve->message)) !!}</div>
                                     </div>
 

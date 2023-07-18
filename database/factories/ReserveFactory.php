@@ -31,6 +31,7 @@ class ReserveFactory extends Factory
         return [
             'name' => $this->faker->name,
             'menu' => $this->faker->numberBetween(1,5),
+            'stylist' => $this->faker->name,
             'message' => $this->faker->realText,
             'start_date' => $startDate,
             'end_date' => $endDate

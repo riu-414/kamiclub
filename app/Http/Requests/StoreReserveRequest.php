@@ -24,6 +24,7 @@ class StoreReserveRequest extends FormRequest
         return [
             'name' => ['required', 'max:50'],
             'menu' => ['required', 'max:50'],
+            'stylist' => ['required', 'max:50'],
             'message' => ['required', 'max:200'],
             'reserve_date' => ['required', 'date'],
             'start_time' => ['required'],
