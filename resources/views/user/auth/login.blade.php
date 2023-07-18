@@ -31,24 +31,26 @@
                 <x-input-error :messages="$errors->get('password')" class="mt-2" />
             </div>
 
+            <div class="mt-4">
+                <x-primary-button class="btn btn-secondary  mx-auto">
+                    ログイン
+                </x-primary-button>
+            </div>
+
             <!-- Remember Me -->
-            <div class="block mt-4">
+            <div class="block">
                 <label for="remember_me" class="inline-flex items-center">
                     <input id="remember_me" type="checkbox" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800" name="remember">
                     <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">ログイン状態を保持する</span>
                 </label>
             </div>
 
-            <div class="flex items-center justify-end mt-4">
+            <div class="mt-4">
                 @if (Route::has('user.password.request'))
                     <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('user.password.request') }}">
                         パスワードをお忘れですか？
                     </a>
                 @endif
-
-                <x-primary-button class="btn btn-secondary  ml-4">
-                    ログイン
-                </x-primary-button>
             </div>
         </form>
 

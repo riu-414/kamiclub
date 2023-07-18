@@ -15,6 +15,7 @@ class Reserve extends Authenticatable
     protected $fillable = [
         'name',
         'menu',
+        'stylist',
         'message',
         // 'reserve_date',
         'start_date',

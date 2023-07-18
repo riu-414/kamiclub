@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('menu');
+            $table->string('stylist');
             $table->text('message');
             $table->datetime('start_date');
             $table->datetime('end_date');
