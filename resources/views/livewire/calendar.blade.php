@@ -17,16 +17,20 @@
             <div class="py-1 px-2 border border-gray-300 text-center">{{ $currentWeek[$i]['dayOfWeek'] }}</div>
             @for ($j = 0; $j < 19; $j++)
                 @if ($reserves->isNotEmpty())
-                    @if (!is_null($reserves->firstWhere('start_date', $currentWeek[$i]['checkDay'] . " " . \Constant::RESERVE_TIME[$j])))
+                    {{-- @if (!is_null($reserves->firstWhere('start_date', $currentWeek[$i]['checkDay'] . " " . \Constant::RESERVE_TIME[$j]))) --}}
+                    @php
+                        $time = \Carbon\CarbonImmutable::createFromFormat('H:i:s', \Constant::RESERVE_TIME[$j])->format('H:i:s');
+                    @endphp
+                    @if (!is_null($reserves->firstWhere('start_date', $currentWeek[$i]['checkDay'] . " " . $time)))
+
                         @php
-                            $reserveId = $reserves->firstWhere('start_date', $currentWeek[$i]['checkDay'] . " " . \Constant::RESERVE_TIME[$j])->id;
-                            $reserveName = $reserves->firstWhere('start_date', $currentWeek[$i]['checkDay'] . " " . \Constant::RESERVE_TIME[$j])->name;
-                            $reserveInfo = $reserves->firstWhere('start_date', $currentWeek[$i]['checkDay'] . " " . \Constant::RESERVE_TIME[$j]);
+                            $reserveId = $reserves->firstWhere('start_date', $currentWeek[$i]['checkDay'] . " " . $time)->id;
+                            $reserveName = $reserves->firstWhere('start_date', $currentWeek[$i]['checkDay'] . " " . $time)->name;
+                            $reserveInfo = $reserves->firstWhere('start_date', $currentWeek[$i]['checkDay'] . " " . $time);
                             $reservePeriod = \Carbon\Carbon::parse($reserveInfo->start_date)->diffInMinutes($reserveInfo->end_date) / 30 - 1;
                         @endphp
                         <div class="py-1 px-2 h-8 border border-gray-300 text-blue-400 text-center bg-red-200">
                             <a href="{{ route('admin.reserve.detail', ['id' => $reserveId]) }}">{{ $reserveName }}</a>
-                            {{-- {{ $reserveName }} --}}
                         </div>
                         @if ($reservePeriod > 0)
                             @for ($k = 0; $k < $reservePeriod; $k++)
@@ -38,6 +42,7 @@
                         @endif
                     @else
                         <div class="py-1 px-2 h-8 border border-gray-300 text-center">-</div>
+                        {{-- <div class="py-1 px-2 h-8 border border-gray-300 text-center">{{ \Constant::RESERVE_TIME[$j] }}</div> --}}
                     @endif
                 @else
                     <div class="py-1 px-2 h-8 border border-gray-300 text-center">-</div>
