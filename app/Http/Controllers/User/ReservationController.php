@@ -4,12 +4,10 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Reserve; //Eloquent
+use App\Models\Stylist;
 use Illuminate\Support\Facades\DB; //QueryBuilder
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
-
-use Illuminate\Http\Request;
-use NunoMaduro\Collision\Adapters\Phpunit\Style;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -36,8 +34,9 @@ class ReservationController extends Controller
     public function create()
     {
         $user = User::findOrFail(Auth::id());
+        $stylists = Stylist::select('id', 'name')->get();
 
-        return view('user.reservation.create', compact('user'));
+        return view('user.reservation.create', compact('user', 'stylists'));
     }
 
     public function store(StoreReserveRequest $request)
@@ -66,9 +65,6 @@ class ReservationController extends Controller
         $end = $request['reserve_date'] . " " . $endTimeString;
         $endDate = Carbon::createFromFormat('Y-m-d H:i:s', $end);
 
-        // $end = $request['reserve_date'] . " " . $request['end_time'];
-        // $endDate = Carbon::createFromFormat('Y-m-d H:i', $end);
-
         // 1時間後
         // $dt = new Carbon('2018-08-08 09:05:53');
         // echo $dt->addHour();
@@ -80,6 +76,7 @@ class ReservationController extends Controller
         Reserve::create([
             'name' => $request->name,
             'menu' => $request->menu,
+            'stylist' => $request->stylist,
             'message' => $request->message,
             'start_date' => $startDate,
             'end_date' => $endDate,
@@ -108,6 +105,7 @@ class ReservationController extends Controller
     public function edit(Reserve $reservation)
     {
         $reserve = Reserve::findOrFail($reservation->id);
+        $stylists = Stylist::select('id', 'name')->get();
 
         $today = Carbon::today()->format('Y年m月d日');
         if($reserve->reserveDate < $today){
@@ -119,7 +117,7 @@ class ReservationController extends Controller
         $endTime = $reserve->endTime;
 
         return view('user.reservation.edit',
-        compact('reserve', 'reserveDate', 'startTime', 'endTime'));
+        compact('reserve', 'stylists', 'reserveDate', 'startTime', 'endTime'));
     }
 
     public function update(UpdateReserveRequest $request, Reserve $reservation)
@@ -154,6 +152,7 @@ class ReservationController extends Controller
         $reserve = Reserve::findOrFail($reservation->id);
         $reserve->name = $request->name;
         $reserve->menu = $request->menu;
+        $reserve->stylist = $request->stylist;
         $reserve->message = $request->message;
         $reserve->start_date = $startDate;
         $reserve->end_date = $endDate;
