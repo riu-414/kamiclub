@@ -17,11 +17,14 @@
             <div class="py-1 px-2 border border-gray-300 text-center">{{ $currentWeek[$i]['dayOfWeek'] }}</div>
             @for ($j = 0; $j < 19; $j++)
                 @if ($reserves->isNotEmpty())
-                    @if (!is_null($reserves->firstWhere('start_date', $currentWeek[$i]['checkDay'] . " " . \Constant::RESERVE_TIME[$j])))
+                @php
+                    $time = \Carbon\CarbonImmutable::createFromFormat('H:i:s', \Constant::RESERVE_TIME[$j])->format('H:i:s');
+                @endphp
+                @if (!is_null($reserves->firstWhere('start_date', $currentWeek[$i]['checkDay'] . " " . $time)))
                         @php
-                            $reserveId = $reserves->firstWhere('start_date', $currentWeek[$i]['checkDay'] . " " . \Constant::RESERVE_TIME[$j])->id;
-                            $reserveName = $reserves->firstWhere('start_date', $currentWeek[$i]['checkDay'] . " " . \Constant::RESERVE_TIME[$j])->name;
-                            $reserveInfo = $reserves->firstWhere('start_date', $currentWeek[$i]['checkDay'] . " " . \Constant::RESERVE_TIME[$j]);
+                            $reserveId = $reserves->firstWhere('start_date', $currentWeek[$i]['checkDay'] . " " . $time)->id;
+                            $reserveName = $reserves->firstWhere('start_date', $currentWeek[$i]['checkDay'] . " " . $time)->name;
+                            $reserveInfo = $reserves->firstWhere('start_date', $currentWeek[$i]['checkDay'] . " " . $time);
                             $reservePeriod = \Carbon\Carbon::parse($reserveInfo->start_date)->diffInMinutes($reserveInfo->end_date) / 30 - 1;
                         @endphp
                         <div class="py-1 px-2 h-8 border border-gray-300 text-center bg-gray-200">
