@@ -165,12 +165,17 @@ class ReservationController extends Controller
 
     public function future()
     {
+        $user = User::findOrFail(Auth::id());
+        $userName = $user->name;
         $today = Carbon::today();
 
         $reserves = DB::table('reserves')
+        ->where('name', '=', $userName)
         ->whereDate('start_date', '>=', $today)
         ->orderBy('start_date', 'desc')
         ->paginate(10);
+
+        // dd($user, $userName, $reserves);
 
         return view('user.reservation.future', compact('reserves'));
     }
