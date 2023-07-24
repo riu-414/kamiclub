@@ -15,10 +15,9 @@
                     </div>
 
                     <div class="lg:w-1/2 md:w-2/3 mx-auto">
+
                         <form method="get" action="{{ route('admin.reserve.edit', ['reserve' => $reserve->id]) }}">
-
                             <div class="-m-2">
-
                                 <div class="p-2 w-1/2 mx-auto">
                                     <div class="relative">
                                         <label for="name">名前</label>
@@ -56,18 +55,38 @@
                                     </div>
                                 </div>
 
-                                <div class="p-2 w-full flex justify-center mt-4">
+                                <div class="p-2 w-full flex justify-center my-4">
                                     @if ($reserveDate >= \Carbon\Carbon::today()->format('Y年m月d日'))
-                                        <button type="submit" class="text-gray bg-blue-300 border-0 mr-16 py-2 px-8 focus:outline-none hover:bg-blue-400 rounded text-lg">編集する</button>
+                                        <button type="submit" class="text-gray bg-blue-300 border-0 mr-16 py-2 px-8 focus:outline-none hover:bg-blue-400 rounded text-lg">編集</button>
                                     @endif
                                     <button type="button" onclick="location.href='{{ route('admin.reserve.index') }}'" class="text-gray bg-gray-300 border-0 py-2 px-8 focus:outline-none hover:bg-gray-400 rounded text-lg">戻る</button>
                                 </div>
                             </div>
                         </form>
-                    </div>
 
+                        <div class="lg:w-1/2 md:w-2/3 mx-auto">
+                            @if ($reserveDate >= \Carbon\Carbon::today()->format('Y年m月d日'))
+                                <form id="delete_{{$reserve->id}}" method="post" action="{{ route('admin.reserve.destroy', ['reserve' => $reserve->id]) }}">
+                                    @csrf
+                                    @method('delete')
+                                    <a href="#" data-id="{{$reserve->id}}" onclick="deletePost(this)" class="text-gray bg-red-300 border-0 py-2 px-8 focus:outline-none hover:bg-red-400 rounded">キャンセル</a>
+                                </form>
+                            @endif
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        function deletePost(e) {
+            'use strict';
+            if (confirm('本当にキャンセルしてもいいですか？')) {
+                document.getElementById('delete_' + e.dataset.id).submit();
+            }
+        }
+    </script>
+
 </x-app-layout>
