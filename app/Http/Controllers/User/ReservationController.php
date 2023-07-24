@@ -104,6 +104,8 @@ class ReservationController extends Controller
 
     public function edit(Reserve $reservation)
     {
+        // dd($reservation->id);
+
         $reserve = Reserve::findOrFail($reservation->id);
         $stylists = Stylist::select('id', 'name')->get();
 
@@ -207,8 +209,14 @@ class ReservationController extends Controller
         compact('reserve', 'reserveDate', 'startTime', 'endTime'));
     }
 
-    public function destroy(Reserve $reserve)
+    public function destroy(Reserve $reservation)
     {
-        //
+        // dd('キャンセル', $reservation->id);
+
+        Reserve::findOrFail($reservation->id)->delete();
+
+        return redirect()
+        ->route('user.reservation.future')
+        ->with(['message' => 'キャンセルしました', 'status' => 'alert']);
     }
 }

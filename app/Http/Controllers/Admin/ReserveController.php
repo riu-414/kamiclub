@@ -182,11 +182,7 @@ class ReserveController extends Controller
 
     public function destroy(Reserve $reserve)
     {
-        // dd('キャンセル', $reserve->id);
-
-        Reserve::findOrFail($reserve->id)->delete(); //ソフトデリート
-
-        // dd('キャンセル');
+        Reserve::findOrFail($reserve->id)->delete();
 
         return redirect()
         ->route('admin.reserve.index')
