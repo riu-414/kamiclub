@@ -17,7 +17,7 @@
                             <div class="lg:w-2/3 w-full mx-auto overflow-auto">
 
                                 <x-flash-message status="session('status')" />
-                                
+
                                 <div class="flex justify-end mb-4">
                                     <button onclick="location.href='{{ route('admin.stylist.create') }}'" class="bg-blue-300 border-0 py-2 px-8 focus:outline-none hover:bg-blue-500 rounded text-lg">新規登録</button>
                                 </div>
