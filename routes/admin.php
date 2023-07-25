@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\Auth\PasswordController;
 use App\Http\Controllers\Admin\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Admin\Auth\RegisteredUserController;
 use App\Http\Controllers\Admin\Auth\VerifyEmailController;
+use App\Http\Controllers\Admin\MenusController;
 use App\Http\Controllers\Admin\StylistController;
 use App\Http\Controllers\Admin\ParkingController;
 use App\Http\Controllers\Admin\UsersController;
@@ -35,6 +36,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::resource('stylist', StylistController::class)
 ->middleware(['auth:admin', 'verified'])->except(['show']); //except 不要なメソッド
+
+Route::resource('menu', MenusController::class)
+->middleware(['auth:admin', 'verified']);
 
 Route::resource('parking', ParkingController::class)
 ->middleware(['auth:admin', 'verified'])->except(['create', 'store', 'show', 'edit', 'destroy']);

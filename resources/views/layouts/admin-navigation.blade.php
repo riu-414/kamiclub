@@ -21,6 +21,10 @@
                         スタイリスト
                     </x-nav-link>
 
+                    <x-nav-link :href="route('admin.menu.index')" :active="request()->routeIs('admin.menu.index')">
+                        メニュー
+                    </x-nav-link>
+
                     <x-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.index')">
                         お客様一覧
                     </x-nav-link>
