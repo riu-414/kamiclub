@@ -26,6 +26,7 @@
                                     <thead>
                                     <tr>
                                         <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tl rounded-bl">タイトル</th>
+                                        <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tl rounded-bl">料金</th>
                                         <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tr rounded-br"></th>
                                     </tr>
                                     </thead>
@@ -33,8 +34,9 @@
                                         @foreach ($menus as $menu)
                                         <tr>
                                             <td class="px-4 py-3">{{ $menu->title }}</td>
+                                            <td class="px-4 py-3">{{ $menu->price }}</td>
                                             <td class="px-4 py-3">
-                                                {{-- <button onclick="location.href='{{ route('admin.menu.edit', ['menu' => $menu->id]) }}'" class="text-gray bg-blue-300 border-0 py-2 px-8 focus:outline-none hover:bg-blue-400 rounded">詳細</button> --}}
+                                                <button onclick="location.href='{{ route('admin.menu.show', ['menu' => $menu->id]) }}'" class="text-gray bg-blue-300 border-0 py-2 px-8 focus:outline-none hover:bg-blue-400 rounded">詳細</button>
                                             </td>
                                         </tr>
                                         @endforeach

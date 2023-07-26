@@ -19,7 +19,7 @@ class MenusController extends Controller
      */
     public function index()
     {
-        $menus = Menu::select('title', 'content', 'price')->get();
+        $menus = Menu::select('id', 'title', 'content', 'price')->get();
 
         return view('admin.menu.index' ,
         compact('menus'));
@@ -61,7 +61,13 @@ class MenusController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $menu = Menu::findOrFail($id);
+        $title = $menu->title;
+        $content = $menu->content;
+        $price = $menu->price;
+
+        return view('admin.menu.show',
+        compact('menu'));
     }
 
     /**
