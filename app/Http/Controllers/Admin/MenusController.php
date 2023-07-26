@@ -101,10 +101,12 @@ class MenusController extends Controller
      */
     public function destroy(string $id)
     {
-        Stylist::findOrFail($id)->delete(); //ソフトデリート
+        // dd('メニュー削除', $id);
+
+        Menu::findOrFail($id)->delete();
 
         return redirect()
-        ->route('admin.stylist.index')
-        ->with(['message' => 'スタイリスト情報を削除', 'status' => 'alert']);
+        ->route('admin.menu.index')
+        ->with(['message' => 'メニュー情報を削除', 'status' => 'alert']);
     }
 }
