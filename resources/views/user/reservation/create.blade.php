@@ -32,8 +32,9 @@
                                     <div class="relative mt-4">
                                         <label for="menu">メニュー</label>
                                         <select id="menu" name="menu" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                            <option value="カット - ¥4,000 - 1.0h">カット - ¥4,000 - 1.0h</option>
-                                            <option value="パーマ - ¥10,000 - 1.0h">パーマ - ¥10,000 - 1.0h</option>
+                                            @foreach ($menus as $menu)
+                                                <option value="{{ $menu->title . " - " . "¥" . $menu->price }}">{{ $menu->title . " - " . "¥" . $menu->price }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
 
