@@ -42,27 +42,10 @@
                             </div>
                         </form>
 
-                        <div class="lg:w-1/2 md:w-2/3 mx-auto">
-                            <form id="delete_{{$menu->id}}" method="post" action="{{ route('admin.menu.destroy', ['menu' => $menu->id]) }}">
-                                @csrf
-                                @method('delete')
-                                <a href="#" data-id="{{$menu->id}}" onclick="deletePost(this)" class="text-gray bg-red-300 border-0 py-2 px-8 focus:outline-none hover:bg-red-400 rounded">削除</a>
-                            </form>
-                        </div>
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <script>
-        function deletePost(e) {
-            'use strict';
-            if (confirm('本当にキャンセルしてもいいですか？')) {
-                document.getElementById('delete_' + e.dataset.id).submit();
-            }
-        }
-    </script>
 
 </x-app-layout>

@@ -75,9 +75,9 @@ class MenusController extends Controller
      */
     public function edit(string $id)
     {
-        $stylist = Stylist::findOrFail($id);
-        // dd($stylist);
-        return view('admin.stylist.edit', compact('stylist'));
+        $menu = Menu::findOrFail($id);
+
+        return view('admin.menu.edit', compact('menu'));
     }
 
     /**
@@ -85,13 +85,15 @@ class MenusController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $stylist = Stylist::findOrFail($id);
-        $stylist->name = $request->name;
-        $stylist->save();
+        $menu = Menu::findOrFail($id);
+        $menu->title= $request->title;
+        $menu->content= $request->content;
+        $menu->price= $request->price;
+        $menu->save();
 
         return redirect()
-        ->route('admin.stylist.index')
-        ->with(['message' => 'スタイリスト情報を更新', 'status' => 'info']);
+        ->route('admin.menu.index')
+        ->with(['message' => 'メニュー情報を更新', 'status' => 'info']);
     }
 
     /**
