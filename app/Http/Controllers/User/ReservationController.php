@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\Reserve; //Eloquent
 use App\Models\Stylist;
+use App\Models\Menu;
 use Illuminate\Support\Facades\DB; //QueryBuilder
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
@@ -35,8 +36,9 @@ class ReservationController extends Controller
     {
         $user = User::findOrFail(Auth::id());
         $stylists = Stylist::select('id', 'name')->get();
+        $menus = Menu::select('id', 'title', 'content', 'price')->get();
 
-        return view('user.reservation.create', compact('user', 'stylists'));
+        return view('user.reservation.create', compact('user', 'stylists', 'menus'));
     }
 
     public function store(StoreReserveRequest $request)
@@ -108,6 +110,7 @@ class ReservationController extends Controller
 
         $reserve = Reserve::findOrFail($reservation->id);
         $stylists = Stylist::select('id', 'name')->get();
+        $menus = Menu::select('id', 'title', 'content', 'price')->get();
 
         $today = Carbon::today()->format('Y年m月d日');
         if($reserve->reserveDate < $today){
@@ -119,7 +122,7 @@ class ReservationController extends Controller
         $endTime = $reserve->endTime;
 
         return view('user.reservation.edit',
-        compact('reserve', 'stylists', 'reserveDate', 'startTime', 'endTime'));
+        compact('reserve', 'stylists', 'menus', 'reserveDate', 'startTime', 'endTime'));
     }
 
     public function update(UpdateReserveRequest $request, Reserve $reservation)
