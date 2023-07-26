@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Reserve; //Eloquent
 use App\Models\Stylist;
+use App\Models\Menu;
 use Illuminate\Support\Facades\DB; //QueryBuilder
 use Carbon\Carbon;
 
@@ -36,8 +37,9 @@ class ReserveController extends Controller
     public function create()
     {
         $stylists = Stylist::select('id', 'name')->get();
+        $menus = Menu::select('id', 'title', 'content', 'price')->get();
 
-        return view('admin.reserve.create', compact('stylists'));
+        return view('admin.reserve.create', compact('stylists', 'menus'));
     }
 
     public function store(StoreReserveRequest $request)
@@ -99,6 +101,7 @@ class ReserveController extends Controller
     public function edit(Reserve $reserve)
     {
         $reserve = Reserve::findOrFail($reserve->id);
+        $menus = Menu::select('id', 'title', 'content', 'price')->get();
         $stylists = Stylist::select('id', 'name')->get();
 
         $today = Carbon::today()->format('Y年m月d日');
@@ -111,7 +114,7 @@ class ReserveController extends Controller
         $endTime = $reserve->endTime;
 
         return view('admin.reserve.edit',
-        compact('reserve', 'stylists', 'reserveDate', 'startTime', 'endTime'));
+        compact('reserve', 'menus', 'stylists', 'reserveDate', 'startTime', 'endTime'));
     }
 
     public function update(UpdateReserveRequest $request, Reserve $reserve)
