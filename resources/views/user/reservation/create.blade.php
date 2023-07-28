@@ -10,6 +10,8 @@
             <div class="main overflow-hidden sm:rounded-lg">
                 <div class="p-6">
 
+                    <x-flash-message status="session('status')" />
+
                     <div class="mb-4 flex justify-center">
                         予約登録
                     </div>
@@ -62,11 +64,6 @@
                                         <label for="start_time">開始時間</label>
                                         <input type="text" id="start_time" name="start_time" value="{{ old('start_time') }}" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                     </div>
-
-                                    {{-- <div class="relative mt-4">
-                                        <label for="end_time">終了時間</label>
-                                        <input type="text" id="end_time" name="end_time" value="{{ old('end_time') }}" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                    </div> --}}
                                 </div>
 
                                 <div class="p-2 w-full flex justify-center mt-4">
