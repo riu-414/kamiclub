@@ -58,7 +58,10 @@ class ReservationController extends Controller
         // dd($check, $request['reserve_date'], $inputTime, $endTimeString);
 
         if($check){
-            return view('user.reservation.create');
+            // dd('予約重複');
+            return redirect()
+            ->route('user.reservation.create')
+            ->with(['message' => 'この時間帯は既に他の予約が存在します。', 'status' => 'alert']);
         }
 
         $start = $request['reserve_date'] . " " . $request['start_time'];
