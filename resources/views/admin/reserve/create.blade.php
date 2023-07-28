@@ -10,6 +10,8 @@
             <div class="main overflow-hidden sm:rounded-lg">
                 <div class="p-6">
 
+                    <x-flash-message status="session('status')" />
+
                     <div class="mb-4 flex justify-center">
                         予約登録
                     </div>

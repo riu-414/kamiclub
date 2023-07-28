@@ -56,7 +56,10 @@ class ReserveController extends Controller
         ->exists();
 
         if($check){
-            return view('admin.reserve.create');
+            return redirect()
+            ->route('admin.reserve.create')
+            ->with(['message' => 'この時間帯は既に他の予約が存在します。', 'status' => 'alert']);
+            // return view('admin.reserve.create');
         }
 
         $start = $request['reserve_date'] . " " . $request['start_time'];
