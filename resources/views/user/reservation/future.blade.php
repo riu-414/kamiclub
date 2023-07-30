@@ -38,7 +38,7 @@
                                         @foreach ($reserves as $reserve)
                                         <tr>
                                             <td class="px-4 py-3">{{ $reserve->start_date }}</td>
-                                            <td class="px-4 py-3">{{ $reserve->menu }}</td>
+                                            <td class="px-4 py-3">{{ $reserve->title }}</td>
                                             <td class="px-4 py-3">{{ $reserve->message }}</td>
                                             <td class="px-4 py-3">
                                                 <button onclick="location.href='{{ route('user.reservation.show', ['reservation' => $reserve->id]) }}'" class="text-gray bg-blue-300 border-0 py-2 px-8 focus:outline-none hover:bg-blue-400 rounded">詳細</button>
