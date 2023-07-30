@@ -11,7 +11,7 @@
                 <div class="p-6">
 
                     <div class="mb-4 flex justify-center">
-                        予約詳細
+                        メニュー詳細
                     </div>
 
                     <div class="lg:w-1/2 md:w-2/3 mx-auto">
@@ -29,9 +29,14 @@
                                         <div class="w-full bg-gray-100 bg-opacity-50 rounded focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"> {!! nl2br(e($menu->content)) !!}</div>
                                     </div>
 
-                                    <div class="relative">
+                                    <div class="relative mt-4">
                                         <label for="name">料金</label>
                                         <div class="w-full bg-gray-100 bg-opacity-50 rounded focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"> {{ $menu->price }}</div>
+                                    </div>
+
+                                    <div class="relative mt-4">
+                                        <label for="">施術時間</label>
+                                        <div class="w-full bg-gray-100 bg-opacity-50 rounded focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"> {{ $menu->menu_hour . "時間" . $menu->menu_minutes . "分" }}</div>
                                     </div>
                                 </div>
 

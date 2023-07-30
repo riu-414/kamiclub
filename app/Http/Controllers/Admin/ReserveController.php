@@ -44,9 +44,11 @@ class ReserveController extends Controller
 
     public function store(StoreReserveRequest $request)
     {
+        $menu = Menu::findOrFail($request->menu);
         $inputTime = $request['start_time'];
         $endTime = Carbon::parse($inputTime);
-        $endTime->addHour();
+        $endTime->addHours($menu->menu_hour);
+        $endTime->addMinutes($menu->menu_minutes);
         $endTimeString = $endTime->toTimeString();
 
         $check = DB::table('reserves')
@@ -59,7 +61,6 @@ class ReserveController extends Controller
             return redirect()
             ->route('admin.reserve.create')
             ->with(['message' => 'この時間帯は既に他の予約が存在します。', 'status' => 'alert']);
-            // return view('admin.reserve.create');
         }
 
         $start = $request['reserve_date'] . " " . $request['start_time'];
@@ -67,14 +68,6 @@ class ReserveController extends Controller
 
         $end = $request['reserve_date'] . " " . $endTimeString;
         $endDate = Carbon::createFromFormat('Y-m-d H:i:s', $end);
-
-        // 1時間後
-        // $dt = new Carbon('2018-08-08 09:05:53');
-        // echo $dt->addHour();
-
-        // 指定分後
-        // $dt = new Carbon('2018-08-08 09:05:53');
-        // echo $dt->addMinute(指定分);
 
         Reserve::create([
             'name' => $request->name,
@@ -97,8 +90,10 @@ class ReserveController extends Controller
         $startTime = $reserve->startTime;
         $endTime = $reserve->endTime;
 
+        $menu = Menu::findOrFail($reserve->menu);
+
         return view('admin.reserve.show',
-        compact('reserve', 'reserveDate', 'startTime', 'endTime'));
+        compact('reserve', 'reserveDate', 'startTime', 'endTime', 'menu'));
     }
 
     public function edit(Reserve $reserve)
@@ -122,10 +117,11 @@ class ReserveController extends Controller
 
     public function update(UpdateReserveRequest $request, Reserve $reserve)
     {
-
+        $menu = Menu::findOrFail($request->menu);
         $inputTime = $request['start_time'];
         $endTime = Carbon::parse($inputTime);
-        $endTime->addHour();
+        $endTime->addHours($menu->menu_hour);
+        $endTime->addMinutes($menu->menu_minutes);
         $endTimeString = $endTime->toTimeString();
 
         $check = DB::table('reserves')

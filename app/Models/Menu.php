@@ -13,6 +13,8 @@ class Menu extends Model
         'title',
         'content',
         'price',
+        'menu_hour',
+        'menu_minutes',
     ];
 
     protected $hidden = [

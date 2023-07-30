@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('title');
             $table->text('content');
             $table->string('price');
+            $table->string('menu_hour');
+            $table->string('menu_minutes');
             $table->timestamps();
         });
     }

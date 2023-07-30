@@ -43,9 +43,11 @@ class ReservationController extends Controller
 
     public function store(StoreReserveRequest $request)
     {
+        $menu = Menu::findOrFail($request->menu);
         $inputTime = $request['start_time'];
         $endTime = Carbon::parse($inputTime);
-        $endTime->addHour();
+        $endTime->addHours($menu->menu_hour);
+        $endTime->addMinutes($menu->menu_minutes);
         $endTimeString = $endTime->toTimeString();
 
         $check = DB::table('reserves')
@@ -55,10 +57,7 @@ class ReservationController extends Controller
         ->exists();
 
         // $check:重複しているとtrue, していないとfalse
-        // dd($check, $request['reserve_date'], $inputTime, $endTimeString);
-
         if($check){
-            // dd('予約重複');
             return redirect()
             ->route('user.reservation.create')
             ->with(['message' => 'この時間帯は既に他の予約が存在します。', 'status' => 'alert']);
@@ -69,14 +68,6 @@ class ReservationController extends Controller
 
         $end = $request['reserve_date'] . " " . $endTimeString;
         $endDate = Carbon::createFromFormat('Y-m-d H:i:s', $end);
-
-        // 1時間後
-        // $dt = new Carbon('2018-08-08 09:05:53');
-        // echo $dt->addHour();
-
-        // 指定分後
-        // $dt = new Carbon('2018-08-08 09:05:53');
-        // echo $dt->addMinute(指定分);
 
         Reserve::create([
             'name' => $request->name,
@@ -94,23 +85,19 @@ class ReservationController extends Controller
 
     public function show(Reserve $reservation)
     {
-        // dd($reservation->id);
-
         $reserve = Reserve::findOrFail($reservation->id);
         $reserveDate = $reserve->reserveDate;
         $startTime = $reserve->startTime;
         $endTime = $reserve->endTime;
 
-        // dd($reserve, $reserveDate, $startTime, $endTime);
+        $menu = Menu::findOrFail($reserve->menu);
 
         return view('user.reservation.show',
-        compact('reserve', 'reserveDate', 'startTime', 'endTime'));
+        compact('reserve', 'menu', 'reserveDate', 'startTime', 'endTime'));
     }
 
     public function edit(Reserve $reservation)
     {
-        // dd($reservation->id);
-
         $reserve = Reserve::findOrFail($reservation->id);
         $stylists = Stylist::select('id', 'name')->get();
         $menus = Menu::select('id', 'title', 'content', 'price')->get();
@@ -130,11 +117,11 @@ class ReservationController extends Controller
 
     public function update(UpdateReserveRequest $request, Reserve $reservation)
     {
-        // dd($request, $reservation->id);
-
+        $menu = Menu::findOrFail($request->menu);
         $inputTime = $request['start_time'];
         $endTime = Carbon::parse($inputTime);
-        $endTime->addHour();
+        $endTime->addHours($menu->menu_hour);
+        $endTime->addMinutes($menu->menu_minutes);
         $endTimeString = $endTime->toTimeString();
 
         $check = DB::table('reserves')
@@ -178,12 +165,12 @@ class ReservationController extends Controller
         $today = Carbon::today();
 
         $reserves = DB::table('reserves')
+        ->join('menus', 'reserves.menu', "=", "menus.id")
         ->where('name', '=', $userName)
         ->whereDate('start_date', '>=', $today)
         ->orderBy('start_date', 'desc')
+        ->select('reserves.id', 'reserves.start_date', 'menus.title', 'reserves.message')
         ->paginate(10);
-
-        // dd($user, $userName, $reserves);
 
         return view('user.reservation.future', compact('reserves'));
     }
@@ -202,14 +189,10 @@ class ReservationController extends Controller
 
     public function detail($id)
     {
-        // dd($reserve);
-
         $reserve = Reserve::findOrFail($id);
         $reserveDate = $reserve->reserveDate;
         $startTime = $reserve->startTime;
         $endTime = $reserve->endTime;
-
-        // dd($reserveDate, $startTime, $endTime);
 
         return view('user.reservation.show',
         compact('reserve', 'reserveDate', 'startTime', 'endTime'));
@@ -217,8 +200,6 @@ class ReservationController extends Controller
 
     public function destroy(Reserve $reservation)
     {
-        // dd('キャンセル', $reservation->id);
-
         Reserve::findOrFail($reservation->id)->delete();
 
         return redirect()

@@ -27,7 +27,7 @@
 
                                     <div class="relative mt-4">
                                         <label for="menu">メニュー</label>
-                                        <div class="w-full bg-gray-100 bg-opacity-50 rounded focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"> {{ $reserve->menu }}</div>
+                                        <div class="w-full bg-gray-100 bg-opacity-50 rounded focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"> {{ $menu->title }}</div>
                                     </div>
 
                                     <div class="relative mt-4">
