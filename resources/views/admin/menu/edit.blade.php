@@ -36,9 +36,25 @@
                                         <textarea name="content" id="content" rows="3" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">{!! nl2br(e($menu->content)) !!}</textarea>
                                     </div>
 
-                                    <div class="relative">
+                                    <div class="relative mt-4">
                                         <label for="price">料金</label>
                                         <input type="text" id="price" name="price" value="{{ $menu->price }}" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                    </div>
+
+                                    <div class="relative mt-4">
+                                        <label for="">施術時間</label>
+                                        <div class="flex justify-center">
+                                            <select id="menu_hour" name="menu_hour" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                                <option value="0">0時間</option>
+                                                <option value="1">1時間</option>
+                                                <option value="2">2時間</option>
+                                                <option value="3">3時間</option>
+                                            </select>
+                                            <select id="menu_minutes" name="menu_minutes" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                                <option value="0">00分</option>
+                                                <option value="30">30分</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
 

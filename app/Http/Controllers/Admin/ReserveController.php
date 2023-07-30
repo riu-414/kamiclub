@@ -44,9 +44,11 @@ class ReserveController extends Controller
 
     public function store(StoreReserveRequest $request)
     {
+        $menu = Menu::findOrFail($request->menu);
         $inputTime = $request['start_time'];
         $endTime = Carbon::parse($inputTime);
-        $endTime->addHour();
+        $endTime->addHours($menu->menu_hour);
+        $endTime->addMinutes($menu->menu_minutes);
         $endTimeString = $endTime->toTimeString();
 
         $check = DB::table('reserves')
@@ -59,7 +61,6 @@ class ReserveController extends Controller
             return redirect()
             ->route('admin.reserve.create')
             ->with(['message' => 'この時間帯は既に他の予約が存在します。', 'status' => 'alert']);
-            // return view('admin.reserve.create');
         }
 
         $start = $request['reserve_date'] . " " . $request['start_time'];

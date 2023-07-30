@@ -43,12 +43,16 @@ class MenusController extends Controller
             'title' => ['required', 'max:50'],
             'content' => ['required', 'max:200'],
             'price' => ['required', 'max:50'],
+            'menu_hour' => ['required', 'max:50'],
+            'menu_minutes' => ['required', 'max:50'],
         ]);
 
         Menu::create([
             'title' => $request->title,
             'content' => $request->content,
             'price' => $request->price,
+            'menu_hour' => $request->menu_hour,
+            'menu_minutes' => $request->menu_minutes,
         ]);
 
         return redirect()
@@ -88,6 +92,8 @@ class MenusController extends Controller
         $menu->title= $request->title;
         $menu->content= $request->content;
         $menu->price= $request->price;
+        $menu->menu_hour= $request->menu_hour;
+        $menu->menu_minutes= $request->menu_minutes;
         $menu->save();
 
         return redirect()
