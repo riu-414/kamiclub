@@ -13,9 +13,13 @@
                         ホーム
                     </x-nav-link>
 
-                    <x-nav-link :href="route('admin.reserve.index')" :active="request()->routeIs('admin.reserve.index')">
-                        予約確認
+                    <x-nav-link :href="route('admin.reserve.select-menu')" :active="request()->routeIs('admin.reserve.select-menu')">
+                        新規予約
                     </x-nav-link>
+
+                    {{-- <x-nav-link :href="route('admin.reserve.index')" :active="request()->routeIs('admin.reserve.index')">
+                        予約確認
+                    </x-nav-link> --}}
 
                     <x-nav-link :href="route('admin.stylist.index')" :active="request()->routeIs('admin.stylist.index')">
                         スタイリスト

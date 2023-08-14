@@ -46,7 +46,13 @@ Route::resource('parking', ParkingController::class)
 Route::resource('users', UsersController::class)
 ->middleware(['auth:admin', 'verified']);
 
+
 Route::get('reserve/past', [ReserveController::class, 'past'])->name('reserve.past')
+->middleware(['auth:admin', 'verified']);
+
+Route::get('reserve/select-menu', [ReserveController::class, 'selectMenu'])->name('reserve.select-menu')
+->middleware(['auth:admin', 'verified']);
+Route::get('reserve/select-calendar', [ReserveController::class, 'selectCalendar'])->name('reserve.select-calendar')
 ->middleware(['auth:admin', 'verified']);
 
 Route::resource('reserve', ReserveController::class)

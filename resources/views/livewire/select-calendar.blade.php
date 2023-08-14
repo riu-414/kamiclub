@@ -21,7 +21,6 @@
                         $time = \Carbon\CarbonImmutable::createFromFormat('H:i:s', \Constant::RESERVE_TIME[$j])->format('H:i:s');
                     @endphp
                     @if (!is_null($reserves->firstWhere('start_date', $currentWeek[$i]['checkDay'] . " " . $time)))
-
                         @php
                             $reserveId = $reserves->firstWhere('start_date', $currentWeek[$i]['checkDay'] . " " . $time)->id;
                             $reserveName = $reserves->firstWhere('start_date', $currentWeek[$i]['checkDay'] . " " . $time)->name;
@@ -29,7 +28,7 @@
                             $reservePeriod = \Carbon\Carbon::parse($reserveInfo->start_date)->diffInMinutes($reserveInfo->end_date) / 30 - 1;
                         @endphp
                         <div class="py-1 px-2 h-8 border border-gray-300 text-black-400 text-center bg-gray-200">
-                            <a href="{{ route('admin.reserve.detail', ['id' => $reserveId]) }}">{{ $reserveName }}</a>
+                            {{ $reserveName }}
                         </div>
                         @if ($reservePeriod > 0)
                             @for ($k = 0; $k < $reservePeriod; $k++)
@@ -41,7 +40,7 @@
                         @endif
                     @else
                         <div class="py-1 px-2 h-8 border border-gray-300 text-center">
-                            -
+                            <button onclick="location.href='{{ route('admin.reserve.create', ['day' => $currentWeek[$i]['day'], 'time' => $time]) }}'" class="text-red-400">◎</button>
                         </div>
                     @endif
                 @else
@@ -52,9 +51,9 @@
         @endfor
     </div>
 
-    {{-- @foreach ($reserves as $reserve)
-        {{ $reserve->start_date }} - {{ $reserve->end_date }}<br>
-    @endforeach --}}
+    <div class="flex justify-center">
+        <button type="button" onclick="location.href='{{ route('admin.reserve.select-menu') }}'" class="text-gray bg-gray-300 border-0 mt-8 py-2 px-8 focus:outline-none hover:bg-gray-400 rounded text-lg">戻る</button>
+    </div>
 
 </div>
 

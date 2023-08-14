@@ -12,6 +12,8 @@
 
                     ホーム
 
+                    <x-flash-message status="session('status')" />
+
                 </div>
             </div>
         </div>
