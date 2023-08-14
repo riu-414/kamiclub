@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             StylistSeeder::class,
             ParkingSeeder::class,
             UsersSeeder::class,
+            MenusSeeder::class,
         ]);
 
         Reserve::factory(100)->create();

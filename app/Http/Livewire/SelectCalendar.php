@@ -6,10 +6,12 @@ use Livewire\Component;
 use Carbon\CarbonImmutable;
 use App\Services\ReserveService;
 
+use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\DB;
 use App\Models\Reserve;
 
-class Calendar extends Component
+class SelectCalendar extends Component
 {
 
     public $currentDate;
@@ -24,6 +26,7 @@ class Calendar extends Component
     {
         $data = session()->get('data');
         $stylistId = $data['stylistId'];
+        // dd($stylistId);
 
         $this->currentDate = CarbonImmutable::today();
         $this->sevenDaysLater = $this->currentDate->addDays(7);
@@ -45,13 +48,14 @@ class Calendar extends Component
                 'dayOfWeek' => $this->dayOfWeek
             ]);
         }
+
     }
 
     public function getDate($date)
     {
         $data = session()->get('data');
         $stylistId = $data['stylistId'];
-
+        
         $this->currentDate = $date;
         $this->currentWeek = [];
         $this->sevenDaysLater = CarbonImmutable::parse($this->currentDate)->addDays(7);
@@ -76,6 +80,6 @@ class Calendar extends Component
 
     public function render()
     {
-        return view('livewire.calendar');
+        return view('livewire.select-calendar');
     }
 }

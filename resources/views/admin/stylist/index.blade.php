@@ -14,7 +14,7 @@
                     <section class="text-gray-600 body-font">
                         <div class="container px-5 py-24 mx-auto">
 
-                            <div class="lg:w-2/3 w-full mx-auto overflow-auto">
+                            <div class="lg:w-3/4 w-full mx-auto overflow-auto">
 
                                 <x-flash-message status="session('status')" />
 
@@ -29,6 +29,7 @@
                                         <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">作成日</th>
                                         <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tr rounded-br"></th>
                                         <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tr rounded-br"></th>
+                                        <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tr rounded-br"></th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -36,6 +37,9 @@
                                         <tr>
                                             <td class="px-4 py-3">{{ $stylist->name }}</td>
                                             <td class="px-4 py-3">{{ $stylist->created_at }}</td>
+                                            <td class="px-4 py-3">
+                                                <button onclick="location.href='{{ route('admin.reserve.index', ['stylistId' => $stylist->id]) }}'" class="text-gray bg-blue-300 border-0 py-2 px-8 focus:outline-none hover:bg-blue-400 rounded">予約確認</button>
+                                            </td>
                                             <td class="px-4 py-3">
                                                 <button onclick="location.href='{{ route('admin.stylist.edit', ['stylist' => $stylist->id]) }}'" class="text-gray bg-blue-300 border-0 py-2 px-8 focus:outline-none hover:bg-blue-400 rounded">編集する</button>
                                             </td>
