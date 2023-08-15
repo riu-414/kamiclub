@@ -45,14 +45,14 @@
                                         <label for="">施術時間</label>
                                         <div class="flex justify-center">
                                             <select id="menu_hour" name="menu_hour" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                                <option value="0">0時間</option>
-                                                <option value="1">1時間</option>
-                                                <option value="2">2時間</option>
-                                                <option value="3">3時間</option>
+                                                <option value="0" <?php if ( $menu->menu_hour === '0' ) { echo ' selected'; } ?>>0時間</option>
+                                                <option value="1" <?php if ( $menu->menu_hour === '1' ) { echo ' selected'; } ?>>1時間</option>
+                                                <option value="2" <?php if ( $menu->menu_hour === '2' ) { echo ' selected'; } ?>>2時間</option>
+                                                <option value="3" <?php if ( $menu->menu_hour === '3' ) { echo ' selected'; } ?>>3時間</option>
                                             </select>
                                             <select id="menu_minutes" name="menu_minutes" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                                <option value="0">00分</option>
-                                                <option value="30">30分</option>
+                                                <option value="0" <?php if ( $menu->menu_minutes === '0' ) { echo ' selected'; } ?>>00分</option>
+                                                <option value="30" <?php if ( $menu->menu_minutes === '30' ) { echo ' selected'; } ?>>30分</option>
                                             </select>
                                         </div>
                                     </div>
