@@ -19,7 +19,7 @@
                                 <x-flash-message status="session('status')" />
 
                                 <div class="mt-8 mb-8 text-center text-red-600">
-                                    ※当日の変更やキャンセルは電話でお願いします。
+                                    ※当日の変更やキャンセルはお電話にてお問い合わせください
                                     <br>
                                     TEL:025-333-8325
                                 </div>
