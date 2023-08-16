@@ -6,7 +6,11 @@
     </div>
 
     <div class="text-center text-sm mt-4">
-        本日から60日先まで選択可能
+        60日先まで選択可能
+        <br>
+        当日の予約はお電話にてお問い合わせください
+        <br>
+        TEL:025-333-8325
     </div>
 
     <input type="text" id="calendar" name="calendar" value="{{ $currentDate }}" wire:change="getDate($event.target.value)" class="block mt-4 mx-auto">
@@ -18,7 +22,15 @@
             <div class="py-1 px-2 border border-gray-300 text-center">{{ $currentWeek[$i]['day'] }}</div>
             <div class="py-1 px-2 border border-gray-300 text-center">{{ $currentWeek[$i]['dayOfWeek'] }}</div>
                 @for ($j = 0; $j < 19; $j++)
-                    {{-- @if ($reserves->isNotEmpty()) --}}
+
+                    @php
+                        $dateString = $currentWeek[$i]['day'];
+                        $parsedDate = \Carbon\Carbon::createFromFormat('n月j日', $dateString);
+                    @endphp
+                    @if ($parsedDate->isToday())
+                        <div class="py-1 px-2 h-8 border border-gray-300 text-center">TEL</div>
+                    @else
+
                         @php
                             $time = \Carbon\CarbonImmutable::createFromFormat('H:i:s', \Constant::RESERVE_TIME[$j])->format('H:i:s');
                         @endphp
@@ -45,9 +57,8 @@
                                 <button onclick="location.href='{{ route('user.reservation.create', ['day' => $currentWeek[$i]['day'], 'time' => $time]) }}'" class="text-red-400">◎</button>
                             </div>
                         @endif
-                    {{-- @else
-                        <div class="py-1 px-2 h-8 border border-gray-300 text-center">-</div>
-                    @endif --}}
+
+                    @endif
                 @endfor
             </div>
         @endfor
