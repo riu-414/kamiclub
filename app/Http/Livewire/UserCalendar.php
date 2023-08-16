@@ -22,6 +22,9 @@ class UserCalendar extends Component
 
     public function mount()
     {
+        $data = session()->get('data');
+        $stylistId = $data['stylistId'];
+
         $this->currentDate = CarbonImmutable::today();
         $this->sevenDaysLater = $this->currentDate->addDays(7);
         $this->currentWeek = [];
@@ -29,6 +32,7 @@ class UserCalendar extends Component
         $this->reserves = ReserveService::getWeekReserves(
             $this->currentDate->format('Y-m-d'),
             $this->sevenDaysLater->format('Y-m-d'),
+            $stylistId,
         );
 
         for($i = 0; $i < 7; $i++){
@@ -47,6 +51,9 @@ class UserCalendar extends Component
 
     public function getDate($date)
     {
+        $data = session()->get('data');
+        $stylistId = $data['stylistId'];
+        
         $this->currentDate = $date;
         $this->currentWeek = [];
         $this->sevenDaysLater = CarbonImmutable::parse($this->currentDate)->addDays(7);
@@ -54,6 +61,7 @@ class UserCalendar extends Component
         $this->reserves = ReserveService::getWeekReserves(
             $this->currentDate,
             $this->sevenDaysLater->format('Y-m-d'),
+            $stylistId,
         );
 
         for($i = 0; $i < 7; $i++){

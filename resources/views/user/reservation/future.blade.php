@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl leading-tight">
-            ユーザー用 : 今日以降の予約状況
+            ユーザー用 : 予約確認
         </h2>
     </x-slot>
 
@@ -13,7 +13,6 @@
 
                     <section class="text-gray-800 body-font">
                         <div class="container px-5 py-24 mx-auto">
-
 
                             <div class="lg:w-2/3 w-full mx-auto overflow-auto">
 
@@ -37,7 +36,8 @@
                                     <tbody>
                                         @foreach ($reserves as $reserve)
                                         <tr>
-                                            <td class="px-4 py-3">{{ $reserve->start_date }}</td>
+                                            {{-- <td class="px-4 py-3">{{ $reserve->start_date }}</td> --}}
+                                            <td class="px-4 py-3"> {{ \Carbon\Carbon::parse($reserve->start_date)->format('Y年n月j日 G時i分') }}</td>
                                             <td class="px-4 py-3">{{ $reserve->title }}</td>
                                             <td class="px-4 py-3">{{ $reserve->message }}</td>
                                             <td class="px-4 py-3">

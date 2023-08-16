@@ -12,7 +12,7 @@
 
                     <button type="button" onclick="location.href='{{ route('user.reservation.future') }}'" class="text-gray bg-blue-300 border-0 w-64 py-2 px-8 mx-auto focus:outline-none hover:bg-blue-600 rounded">予約確認</button>
 
-                    <button type="button" onclick="location.href='{{ route('user.reservation.index') }}'" class="text-gray bg-blue-300 border-0 w-64 mt-8 py-2 px-8 mx-auto focus:outline-none hover:bg-blue-600 rounded">予約する</button>
+                    <button type="button" onclick="location.href='{{ route('user.reservation.select-menu') }}'" class="text-gray bg-blue-300 border-0 w-64 mt-8 py-2 px-8 mx-auto focus:outline-none hover:bg-blue-600 rounded">予約する</button>
 
                     <button type="button" onclick="location.href='{{ route('user.parking.index') }}'" class="text-gray bg-blue-300 border-0 w-64 mt-8 py-2 px-8 mx-auto focus:outline-none hover:bg-blue-600 rounded">駐車場の空きを確認する</button>
 

@@ -9,6 +9,7 @@ use App\Models\Menu;
 use Illuminate\Support\Facades\DB; //QueryBuilder
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
+use Illuminate\Http\Request;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -32,18 +33,38 @@ class ReservationController extends Controller
         return view('user.reservation.index', compact('reserves'));
     }
 
-    public function create()
+    public function create(Request $request)
     {
-        $user = User::findOrFail(Auth::id());
-        $stylists = Stylist::select('id', 'name')->get();
-        $menus = Menu::select('id', 'title', 'content', 'price')->get();
+        $data = session()->get('data');
+        $menuId = $data['menuId'];
+        $stylistId = $data['stylistId'];
 
-        return view('user.reservation.create', compact('user', 'stylists', 'menus'));
+        $user = User::findOrFail(Auth::id());
+        // $stylists = Stylist::select('id', 'name')->get();
+        // $menus = Menu::select('id', 'title', 'content', 'price')->get();
+
+        $menu = Menu::findOrFail($menuId);
+        $stylist = Stylist::findOrFail($stylistId);
+        $requestDay = $request->query('day'); //表示用
+        $day = Carbon::createFromFormat('m月d日', $requestDay)->format('Y-m-d'); //DB保存用
+        $requestTime = $request->query('time'); //DB保存用
+        $time = Carbon::createFromFormat('H:i:s', $requestTime)->format('G時i分'); //表示用
+
+        $data['day'] = $day;
+        $data['requestTime'] = $requestTime;
+        session()->put('data', $data);
+
+        return view('user.reservation.create', compact('user', 'day', 'requestTime', 'stylist', 'menu'));
     }
 
     public function store(StoreReserveRequest $request)
     {
-        $menu = Menu::findOrFail($request->menu);
+        $data = session()->get('data');
+        $menuId = $data['menuId'];
+        $stylistId = $data['stylistId'];
+
+        // $menu = Menu::findOrFail($request->menu);
+        $menu = Menu::findOrFail($menuId);
         $inputTime = $request['start_time'];
         $endTime = Carbon::parse($inputTime);
         $endTime->addHours($menu->menu_hour);
@@ -51,6 +72,7 @@ class ReservationController extends Controller
         $endTimeString = $endTime->toTimeString();
 
         $check = DB::table('reserves')
+        ->where('stylist', '=', $stylistId)
         ->whereDate('start_date', $request['reserve_date'])
         ->whereTime('end_date', '>', $request['start_time'])
         ->whereTime('start_date', '<', $endTimeString)
@@ -59,8 +81,8 @@ class ReservationController extends Controller
         // $check:重複しているとtrue, していないとfalse
         if($check){
             return redirect()
-            ->route('user.reservation.create')
-            ->with(['message' => 'この時間帯は既に他の予約が存在します。', 'status' => 'alert']);
+            ->route('user.reservation.select-menu')
+            ->with(['message' => 'この時間帯は既に他の予約が存在します。他の時間を選択してください。', 'status' => 'alert']);
         }
 
         $start = $request['reserve_date'] . " " . $request['start_time'];
@@ -71,15 +93,15 @@ class ReservationController extends Controller
 
         Reserve::create([
             'name' => $request->name,
-            'menu' => $request->menu,
-            'stylist' => $request->stylist,
+            'menu' => $menuId,
+            'stylist' => $stylistId,
             'message' => $request->message,
             'start_date' => $startDate,
             'end_date' => $endDate,
         ]);
 
         return redirect()
-        ->route('user.reservation.index')
+        ->route('user.reservation.future')
         ->with(['message' => '予約完了', 'status' => 'info']);
     }
 
@@ -156,6 +178,28 @@ class ReservationController extends Controller
         return redirect()
         ->route('user.reservation.future')
         ->with(['message' => '変更完了', 'status' => 'info']);
+    }
+
+    public function selectMenu()
+    {
+        $stylists = Stylist::select('id', 'name')->get();
+        $menus = Menu::select('id', 'title', 'content', 'price', 'menu_hour', 'menu_minutes')->get();
+
+        return view('user.reservation.select-menu', compact('stylists', 'menus'));
+    }
+
+    public function selectCalendar(Request $request)
+    {
+        $menuId = $request->menuId;
+        $stylistId = $request->stylistId;
+
+        $data = [
+            'menuId' => $menuId,
+            'stylistId' => $stylistId,
+        ];
+        session()->put('data', $data);
+
+        return view('user.reservation.select-calendar', compact('menuId', 'stylistId'));
     }
 
     public function future()
