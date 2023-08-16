@@ -57,15 +57,15 @@
                                 </div>
 
                                 <div class="p-2 w-full flex justify-center mt-4">
-                                    @if ($reserveDate > \Carbon\Carbon::today()->format('Y年m月d日'))
+                                    {{-- @if ($reserveDate > \Carbon\Carbon::today()->format('Y年m月d日'))
                                         <button type="submit" class="text-gray bg-blue-300 border-0 mr-16 py-2 px-8 focus:outline-none hover:bg-blue-400 rounded text-lg">編集する</button>
-                                    @endif
+                                    @endif --}}
                                     <button type="button" onclick="location.href='{{ route('user.reservation.future') }}'" class="text-gray bg-gray-300 border-0 py-2 px-8 focus:outline-none hover:bg-gray-400 rounded text-lg">戻る</button>
                                 </div>
                             </div>
                         </form>
 
-                        <div class="lg:w-1/2 md:w-2/3 mx-auto mt-8">
+                        <div class="lg:w-1/2 md:w-2/3 mx-auto mt-8 flex justify-center">
                             @if ($reserveDate > \Carbon\Carbon::today()->format('Y年m月d日'))
                             <form id="delete_{{$reserve->id}}" method="post" action="{{ route('user.reservation.destroy', ['reservation' => $reserve->id]) }}">
                                 @csrf
@@ -74,6 +74,7 @@
                             </form>
                             @endif
                         </div>
+
                     </div>
 
                 </div>

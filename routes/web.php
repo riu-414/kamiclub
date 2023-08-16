@@ -27,6 +27,11 @@ Route::resource('parking', ParkingController::class)
 Route::get('reservation/future', [ReservationController::class, 'future'])->name('reservation.future')
 ->middleware(['auth:users', 'verified']);
 
+Route::get('reservation/select-menu', [ReservationController::class, 'selectmenu'])->name('reservation.select-menu')
+->middleware(['auth:users', 'verified']);
+Route::get('reservation/select-calendar', [ReservationController::class, 'selectcalendar'])->name('reservation.select-calendar')
+->middleware(['auth:users', 'verified']);
+
 Route::resource('reservation', ReservationController::class)
 ->middleware(['auth:users', 'verified']);
 

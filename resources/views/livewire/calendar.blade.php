@@ -4,7 +4,7 @@
     </div>
 
     <div class="text-center text-sm mt-4">
-        本日から30日先まで選択可能
+        本日から60日先まで選択可能
     </div>
 
     <input type="text" id="calendar" name="calendar" value="{{ $currentDate }}" wire:change="getDate($event.target.value)" class="block mt-4 mx-auto">
