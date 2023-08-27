@@ -155,6 +155,8 @@ return [
 
     'attributes' => [
         'name' => '名前',
+        'birthday' => '誕生日',
+        'phone' => '電話番号',
         'email' => 'メールアドレス',
         'password' => 'パスワード',
         'message' => 'お店へのご要望',

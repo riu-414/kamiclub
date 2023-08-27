@@ -8,8 +8,8 @@
     <div class="py-12">
 
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
+            <div class="overflow-hidden sm:rounded-lg">
+                <div class="text-gray-900 dark:text-gray-100">
 
                     <section class="text-gray-600 body-font relative">
                         <div class="container px-5 py-24 mx-auto">
@@ -27,6 +27,27 @@
 
                                     <div class="mb-4 p-2 w-1/2 mx-auto">
                                         <div class="relative">
+                                            <label for="name" class="leading-7 text-sm text-gray-600">性別</label>
+                                            <div class="w-full bg-gray-100 bg-opacity-50 rounded focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"> {{ $user->sex }}</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-4 p-2 w-1/2 mx-auto">
+                                        <div class="relative">
+                                            <label for="name" class="leading-7 text-sm text-gray-600">誕生日</label>
+                                            <div class="w-full bg-gray-100 bg-opacity-50 rounded focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"> {{ $birthday }}</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-4 p-2 w-1/2 mx-auto">
+                                        <div class="relative">
+                                            <label for="name" class="leading-7 text-sm text-gray-600">電話番号</label>
+                                            <div class="w-full bg-gray-100 bg-opacity-50 rounded focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"> {{ $user->phone }}</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-4 p-2 w-1/2 mx-auto">
+                                        <div class="relative">
                                             <label for="name" class="leading-7 text-sm text-gray-600">メールアドレス</label>
                                             <div class="w-full bg-gray-100 bg-opacity-50 rounded focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"> {{ $user->email }}</div>
                                         </div>
@@ -35,7 +56,7 @@
                                     <div class="mb-4 p-2 w-1/2 mx-auto">
                                         <div class="relative">
                                             <label for="name" class="leading-7 text-sm text-gray-600">登録日</label>
-                                            <div class="w-full bg-gray-100 bg-opacity-50 rounded focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"> {{ $user->created_at }}</div>
+                                            <div class="w-full bg-gray-100 bg-opacity-50 rounded focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"> {{ $createDay }}</div>
                                         </div>
                                     </div>
 

@@ -4,10 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Admin;
 use App\Models\User; //Eloquent
-use Illuminate\Support\Facades\DB; //QueryBuilder
-use NunoMaduro\Collision\Adapters\Phpunit\Style;
+use Carbon\Carbon;
 
 class UsersController extends Controller
 {
@@ -48,8 +46,12 @@ class UsersController extends Controller
     public function show(string $id)
     {
         $user = User::findOrFail($id);
+        $birthday = Carbon::parse($user->birthday)->format('Y年n月j日');
+        $createDay = Carbon::parse($user->created_at)->format('Y年n月j日 h時i分s秒');
 
-        return view('admin.users.show',compact('user'));
+        // dd($createDay);
+
+        return view('admin.users.show',compact('user', 'birthday', 'createDay'));
     }
 
     /**

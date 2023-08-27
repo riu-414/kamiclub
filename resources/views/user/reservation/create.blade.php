@@ -7,7 +7,7 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="main overflow-hidden sm:rounded-lg">
+            <div class="overflow-hidden sm:rounded-lg">
                 <div class="p-6">
 
                     <x-flash-message status="session('status')" />
@@ -34,22 +34,11 @@
                                     <div class="relative mt-4">
                                         <label for="menu">メニュー</label>
                                         <input type="text" id="menu" name="menu" value="{{ $menu->title }}" readonly class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                        {{-- <select id="menu" name="menu" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                            @foreach ($menus as $menu)
-                                                <option value="{{ $menu->id }}">{{ $menu->title . " - " . "¥" . $menu->price }}</option>
-                                            @endforeach
-                                        </select> --}}
                                     </div>
 
                                     <div class="relative mt-4">
                                         <label for="stylist">スタイリスト</label>
                                         <input type="text" id="stylist" name="stylist" value="{{ $stylist->name }}" readonly class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                        {{-- <select id="stylist" name="stylist" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                            <option value="指定しない">指定しない</option>
-                                            @foreach ($stylists as $stylist)
-                                                <option value="{{ $stylist->name }}">{{ $stylist->name }}</option>
-                                            @endforeach
-                                        </select> --}}
                                     </div>
 
                                     <div class="relative mt-4">

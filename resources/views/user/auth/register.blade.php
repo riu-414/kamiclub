@@ -13,10 +13,32 @@
             @csrf
 
             <!-- Name -->
-            <div>
+            <div class="">
                 <x-input-label for="name" value="名前" />
                 <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
                 <x-input-error :messages="$errors->get('name')" class="mt-2" />
+            </div>
+
+            <!-- sex -->
+            <div class="mt-4">
+                <x-input-label for="sex" value="性別" />
+                <input type="radio" id="sex" name="sex" value="男性" required autofocus autocomplete="sex">男性
+                <input type="radio" id="sex" name="sex" value="女性" required autofocus autocomplete="sex">女性
+                <x-input-error :messages="$errors->get('sex')" class="mt-2" />
+            </div>
+
+            <!-- birthday -->
+            <div class="mt-4">
+                <x-input-label for="birthday" value="誕生日" />
+                <x-text-input id="birthday" class="block mt-1 w-full" type="date" name="birthday" :value="old('birthday')" required autofocus autocomplete="birthday" placeholder="例)19990101"/>
+                <x-input-error :messages="$errors->get('birthday')" class="mt-2" />
+            </div>
+
+            <!-- phone -->
+            <div class="mt-4">
+                <x-input-label for="phone" value="電話番号" />
+                <x-text-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')" required autofocus autocomplete="phone" placeholder="ハイフンなしで入力"/>
+                <x-input-error :messages="$errors->get('phone')" class="mt-2" />
             </div>
 
             <!-- Email Address -->

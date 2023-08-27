@@ -8,7 +8,7 @@
     <div class="py-12">
 
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="main overflow-hidden sm:rounded-lg">
+            <div class="overflow-hidden sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
 
                     <section class="text-gray-800 body-font">
