@@ -7,7 +7,7 @@
 
     <div class="py-12">
         <div class="reserve-calendar mx-auto sm:px-6 lg:px-8">
-            <div class="main mt-6 overflow-hidden sm:rounded-lg">
+            <div class="mt-6 overflow-hidden sm:rounded-lg">
                 <div class="p-6">
 
                     <x-flash-message status="session('status')" />
