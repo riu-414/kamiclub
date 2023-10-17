@@ -21,6 +21,6 @@ class DatabaseSeeder extends Seeder
             MenusSeeder::class,
         ]);
 
-        Reserve::factory(100)->create();
+        // Reserve::factory(100)->create();
     }
 }

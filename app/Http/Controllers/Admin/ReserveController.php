@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Reserve; //Eloquent
 use App\Models\Stylist;
 use App\Models\Menu;
+use App\Models\Holiday;
 use App\Models\User;
 use Illuminate\Support\Facades\DB; //QueryBuilder
 use Carbon\Carbon;
@@ -83,8 +84,6 @@ class ReserveController extends Controller
         ->whereTime('end_date', '>', $request['start_time'])
         ->whereTime('start_date', '<', $endTimeString)
         ->exists();
-
-        // dd($check);
 
         // true重複する。false重複しない
         if($check){
@@ -202,6 +201,11 @@ class ReserveController extends Controller
 
     public function selectCalendar(Request $request)
     {
+        // $holidays = Holiday::select('holiday')->get();
+        // $holiday = Holiday::find(1);
+        // $date = $holiday->created_at->toDateString();
+        // dd($date);
+
         $menuId = $request->menuId;
         $stylistId = $request->stylistId;
 
