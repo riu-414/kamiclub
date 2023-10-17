@@ -5,6 +5,9 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use Carbon\CarbonImmutable;
 use App\Services\ReserveService;
+use App\Models\Holiday;
+use App\Models\Menu;
+use App\Services\HolidayService;
 
 use Illuminate\Http\Request;
 
@@ -21,12 +24,14 @@ class SelectCalendar extends Component
     public $dayOfWeek;
     public $sevenDaysLater;
     public $reserves;
+    public $holidays;
+    public $menu;
 
     public function mount()
     {
         $data = session()->get('data');
         $stylistId = $data['stylistId'];
-        // dd($stylistId);
+        $menuId = $data['menuId'];
 
         $this->currentDate = CarbonImmutable::today();
         $this->sevenDaysLater = $this->currentDate->addDays(7);
@@ -37,6 +42,12 @@ class SelectCalendar extends Component
             $this->sevenDaysLater->format('Y-m-d'),
             $stylistId,
         );
+
+        $this->holidays = HolidayService::getWeekHolidays();
+
+        $this->menu = Menu::find($menuId);
+
+        // dd($menu->menu_hour, $menu->menu_minutes);
 
         for($i = 0; $i < 7; $i++){
             $this->day = CarbonImmutable::today()->addDays($i)->format('m月d日');
@@ -55,7 +66,7 @@ class SelectCalendar extends Component
     {
         $data = session()->get('data');
         $stylistId = $data['stylistId'];
-        
+
         $this->currentDate = $date;
         $this->currentWeek = [];
         $this->sevenDaysLater = CarbonImmutable::parse($this->currentDate)->addDays(7);
@@ -65,6 +76,8 @@ class SelectCalendar extends Component
             $this->sevenDaysLater->format('Y-m-d'),
             $stylistId,
         );
+
+        $this->holidays = HolidayService::getWeekHolidays();
 
         for($i = 0; $i < 7; $i++){
             $this->day = CarbonImmutable::parse($this->currentDate)->addDays($i)->format('m月d日');

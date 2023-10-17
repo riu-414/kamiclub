@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\StylistController;
 use App\Http\Controllers\Admin\ParkingController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\ReserveController;
+use App\Http\Controllers\Admin\HolidayController;
 use App\Http\Livewire\Calender;
 use App\Models\Reserve;
 use Illuminate\Support\Facades\Route;
@@ -42,6 +43,9 @@ Route::resource('menu', MenusController::class)
 
 Route::resource('parking', ParkingController::class)
 ->middleware(['auth:admin', 'verified'])->except(['create', 'store', 'show', 'edit', 'destroy']);
+
+Route::resource('holiday', HolidayController::class)
+->middleware(['auth:admin', 'verified']);
 
 Route::resource('users', UsersController::class)
 ->middleware(['auth:admin', 'verified']);

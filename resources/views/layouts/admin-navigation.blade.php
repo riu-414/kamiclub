@@ -25,6 +25,10 @@
                         スタイリスト
                     </x-nav-link>
 
+                    <x-nav-link :href="route('admin.holiday.index')" :active="request()->routeIs('admin.holiday.index')">
+                        休日設定
+                    </x-nav-link>
+
                     <x-nav-link :href="route('admin.menu.index')" :active="request()->routeIs('admin.menu.index')">
                         メニュー
                     </x-nav-link>
